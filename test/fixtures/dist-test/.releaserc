@@ -1,0 +1,26 @@
+{
+  "branches": ["master", "next"],
+  "plugins": [
+    ["@semantic-release/changelog", {
+      "changelogFile": "CHANGELOG.md"
+    }],
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    ["@semantic-release/exec", {
+      "prepareCmd": "sh ./.github/scripts/release.sh ${nextRelease.version}"
+    }],
+    ["@semantic-release/git", {
+      "assets": [
+        "CHANGELOG.md", "serbian-addons-for-woocommerce.php", ".wordpress-org/readme.txt", "lib/Serbian_WooCommerce.php"
+      ],
+      "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+    }],
+    ["@semantic-release/github", {
+      "assets": [{
+        "path": "/tmp/release.zip",
+        "name": "serbian-addons-for-woocommerce-${nextRelease.version}.zip",
+        "label": "Version ${nextRelease.version}"
+      }]
+    }]
+  ]
+}

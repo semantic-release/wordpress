@@ -1,20 +1,30 @@
 {
-    "compilerOptions": {
-      "module": "commonjs",
-      "declaration": true,
-      "strict": true,
-      "allowSyntheticDefaultImports": true,
-      "esModuleInterop": true,
-      "removeComments": false,
-      "noLib": false,
-      "target": "ES2022",
-      "sourceMap": true,
-      "outDir": "./dist",
-      "rootDir": "./lib",
-      "skipLibCheck": true
-    },
-    "include": [
-      "lib/**/*"
+  "compilerOptions": {
+    "module": "NodeNext", // or "NodeNext"
+    "target": "ESNext",
+    "moduleResolution": "NodeNext", // or "NodeNext"
+    "esModuleInterop": true,
+    "declaration": true,
+    "strict": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "node",
+      "jest",
     ],
-  }
-  
+    "allowJs": true,
+    "removeComments": false,
+    "noLib": false,
+    "skipLibCheck": true,
+    "exactOptionalPropertyTypes": false,
+    "noImplicitReturns": true,
+    "alwaysStrict": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": false,
+    "strictNullChecks": false,
+    "sourceMap": true,
+    "outDir": "dist",
+  },
+  "include": ["lib/**/*", "test/**/*",".eslintrc.cjs"],
+}

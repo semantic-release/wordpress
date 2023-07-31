@@ -1,0 +1,17 @@
+.cache-loader
+.vscode
+config/modules.php
+dist
+node_modules
+vendor
+studio.json
+yarn-error.log
+*.zip
+
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

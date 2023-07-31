@@ -5,6 +5,10 @@ lib
 .editorconfig
 .eslintrc.js
 .prettierrc
+jest.config.json
 LICENSE
+README.md
+CHANGELOG.md
 tsconfig.json
 tsconfig.build.json
+tsconfig.buildinfo

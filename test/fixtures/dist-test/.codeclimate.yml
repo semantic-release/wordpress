@@ -1,0 +1,8 @@
+---
+ratings:
+  paths:
+  - "**.php"
+checks:
+  method-lines:
+    config:
+      threshold: 50

@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress Plugin">
+    <config name="minimum_supported_wp_version" value="5.6" />
+    <config name="testVersion" value="7.4-"/>
+    <rule ref="PHPCompatibilityWP"/>
+    <rule ref="WordPress-Core">
+        <!-- a couple of excldes since I dont want any issues with composer packages -->
+        <!-- <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterOpen"/> -->
+        <!-- <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterOpenParenthesis" /> -->
+        <!-- <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceBeforeCloseParenthesis" /> -->
+        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+    </rule>
+    <rule ref="WordPress-Docs">
+        <type>warning</type>
+    </rule>
+    <rule ref="WordPress-Extra" />
+    <!-- <rule ref="VariableAnalysis" /> -->
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <!-- CONFIGURE HERE YOUR text-domain -->
+            <property name="text_domain" type="array" value="serbian-addons-for-woocommerce, woocommerce" />
+        </properties>
+	</rule>
+    <rule ref="Squiz.PHP.CommentedOutCode.Found">
+        <severity>0</severity>
+    </rule>
+
+    <rule ref="WooCommerce-Core" />
+
+
+    <!-- CONFIGURE HERE THE PATHS YOU WANT TO CHECK -->
+    <file>branblan-product-creator.php</file>
+    <file>lib/</file>
+
+    <!-- Show sniff codes in all reports -->
+    <arg value="sp"/> <!-- Show sniff and progress -->
+    <arg name="parallel" value="8"/> <!-- Enables parallel processing when available for faster results. -->
+    <arg name="colors"/>
+    <arg name="extensions" value="php"/>
+
+    <!-- Configure here the paths you want to IGNORE -->
+    <exclude-pattern>/docker/*</exclude-pattern>
+    <exclude-pattern>/node_modules/*</exclude-pattern>
+    <exclude-pattern>/tests/*</exclude-pattern>
+    <exclude-pattern>/vendor/*</exclude-pattern>
+
+    <rule ref="WordPress">
+        <exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
+    </rule>
+
+    <rule ref="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid">
+        <type>warning</type>
+        <severity>10</severity>
+    </rule>
+
+    <rule ref="WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid">
+        <type>warning</type>
+        <severity>10</severity>
+    </rule>
+
+    <rule ref="Generic.WhiteSpace.ScopeIndent">
+        <properties>
+            <property name="indent" value="4"/>
+            <property name="tabIndent" value="false"/>
+        </properties>
+    </rule>
+    <rule ref="Generic.WhiteSpace.DisallowTabIndent" />
+</ruleset>

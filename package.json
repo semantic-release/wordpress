@@ -1,64 +1,72 @@
 {
-  "name": "your-name-here",
+  "name": "semantic-release-wp-plugin",
   "version": "0.0.0",
   "license": "MIT",
   "contributors": [],
   "repository": {
     "type": "git",
-    "url": "https://github.com/your_org/your_repo.git"
+    "url": "https://github.com/oblakstudio/semantic-release-wp-pack-plugin.git"
   },
-  "bugs": "https://githu.com/your_org/your_repo/issues",
+  "bugs": "https://githu.com/oblakstudio/semantic-release-wp-pack-plugin/issues",
   "keywords": [],
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && tsc --project tsconfig.build.json",
     "watch": "rimraf dist && tsc --watch",
     "build:production": "rimraf dist && tsc --project tsconfig.build.json",
     "lint": "eslint lib/*.ts",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "release:test": "node ./node_modules/semantic-release/bin/semantic-release.js --dry-run",
-    "release": "node ./node_modules/semantic-release/bin/semantic-release.js"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest -i",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
+    "test:cov": "NODE_OPTIONS=--experimental-vm-modules jest --coverage -i",
+    "semantic-release": "semantic-release"
   },
+  "type": "module",
   "engines": {
     "node": ">= 18"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-
+    "@semantic-release/error": "^4.0.0",
+    "aggregate-error": "^4.0.1",
+    "class-transformer": "^0.5.1",
+    "class-transformer-validator": "^0.9.1",
+    "class-validator": "^0.14.0",
+    "fs-extra": "^11.1.1",
+    "glob": "^10.3.3",
+    "read-pkg": "^8.0.0",
+    "reflect-metadata": "^0.1.13",
+    "replace-in-file": "^7.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.22.9",
+    "@babel/preset-env": "^7.22.9",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^9.0.4",
+    "@types/fs-extra": "^11.0.1",
     "@types/jest": "^29.5.3",
+    "@types/node": "^20.4.5",
+    "@types/semantic-release__error": "^3.0.0",
+    "@types/signale": "^1.4.4",
+    "@types/sinon": "^10.0.15",
     "@typescript-eslint/eslint-plugin": "^6.2.0",
     "@typescript-eslint/parser": "^6.2.0",
-    "eslint": "^8.45.0",
+    "babel-jest": "^29.6.2",
+    "eslint": "^8.46.0",
     "eslint-config-prettier": "^8.9.0",
     "eslint-plugin-prettier": "^5.0.0",
     "jest": "^29.6.2",
     "prettier": "^3.0.0",
     "rimraf": "^5.0.1",
+    "semantic-release": "^21.0.7",
+    "signale": "^1.4.0",
+    "sinon": "^15.2.0",
     "ts-jest": "^29.1.1",
     "typescript": "^5.1.6"
   },
   "peerDependencies": {
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "lib",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "semantic-release": "^21.0.7"
   },
   "publishConfig": {
     "access": "public"

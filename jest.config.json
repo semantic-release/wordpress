@@ -1,0 +1,28 @@
+{
+  "preset": "ts-jest/presets/js-with-ts-esm",
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "moduleNameMapper": {
+    "^(\\.{1,2}/.*)\\.js$": "$1"
+  },
+  "extensionsToTreatAsEsm": [".ts"],
+  "transform": {
+    "^.+\\.(mt|t|cj|j)s$": [
+      "ts-jest",
+      {
+        "useESM": true
+      }
+    ]
+  },
+  "coveragePathIgnorePatterns": [
+    "/node_modules/",
+    "/test/",
+    "/dist/",
+    "/lib/@types",
+    "/lib/index.ts",
+    "/(.*)/index.ts"
+  ],
+  "collectCoverageFrom": ["**/*.(t|j)s"],
+  "coverageProvider": "v8",
+  "coverageDirectory": "../coverage",
+  "testEnvironment": "node"
+}
