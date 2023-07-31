@@ -5,9 +5,9 @@
   "contributors": [],
   "repository": {
     "type": "git",
-    "url": "https://github.com/oblakstudio/semantic-release-wp-pack-plugin.git"
+    "url": "https://github.com/oblakstudio/semantic-release-wp-plugin.git"
   },
-  "bugs": "https://githu.com/oblakstudio/semantic-release-wp-pack-plugin/issues",
+  "bugs": "https://githu.com/oblakstudio/semantic-release-wp-plugin/issues",
   "keywords": [],
   "scripts": {
     "build": "rimraf dist && tsc --project tsconfig.build.json",
