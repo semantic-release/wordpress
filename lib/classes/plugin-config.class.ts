@@ -64,6 +64,10 @@ export class PluginConfig {
   @IsOptional()
   releasePath? = '/tmp/wp-release';
 
+  @IsString()
+  @IsOptional()
+  workDir?: string = '';
+
   /**
    * Slug of the plugin/theme.
    */

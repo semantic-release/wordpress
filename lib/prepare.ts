@@ -22,7 +22,9 @@ export async function prepare(
       ? [`${config.slug}.php`, ...config.versionFiles]
       : ['style.css', ...config.versionFiles];
   const workDir = config.copyFiles
-    ? path.join(os.tmpdir(), 'workDir', config.slug)
+    ? path.join(
+        path.join(os.tmpdir(), `workDir-${config.workDir}`, config.slug),
+      )
     : path.resolve(path.resolve(config.path));
 
   if (config.copyFiles) {
@@ -49,7 +51,6 @@ export async function prepare(
   }
 
   if (!config.withAssets) {
-    context.logger.success('Prepared files for release');
     return;
   }
 
@@ -58,6 +59,4 @@ export async function prepare(
   if (errors.length) {
     throw new AggregateError(errors);
   }
-
-  context.logger.success('Prepared files for release');
 }

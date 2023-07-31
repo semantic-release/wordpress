@@ -98,6 +98,7 @@ it('Should fully prepare a theme for release', async () => {
       versionFiles: ['functions.php'],
       include: ['style.css', '*.php', 'vendor'],
       exclude: [],
+      workDir: '1',
     },
     context,
   );
@@ -105,7 +106,7 @@ it('Should fully prepare a theme for release', async () => {
   const themeDir = fs.readdirSync('/tmp/wp-release/complete-theme');
   const assets = fs.readdirSync('/tmp/wp-release/assets');
   const versions = fs.readFileSync(
-    '/tmp/workDir/complete-theme/functions.php',
+    '/tmp/workDir-1/complete-theme/functions.php',
     'utf8',
   );
 

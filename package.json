@@ -14,9 +14,9 @@
     "watch": "rimraf dist && tsc --watch",
     "build:production": "rimraf dist && tsc --project tsconfig.build.json",
     "lint": "eslint lib/*.ts",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest -i",
-    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
-    "test:cov": "NODE_OPTIONS=--experimental-vm-modules jest --coverage -i",
+    "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest",
+    "test:watch": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest --watch",
+    "test:cov": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest --coverage",
     "semantic-release": "semantic-release"
   },
   "type": "module",
