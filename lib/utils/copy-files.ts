@@ -54,11 +54,12 @@ export async function copyFiles(
 
   for (const file of files) {
     try {
-      await fs.copy(
+      fs.cpSync(
         path.resolve(path.join(workDir, file)),
         path.resolve(path.join(releasePath, file)),
         {
           preserveTimestamps: true,
+          recursive: true,
         },
       );
     } catch (err) {

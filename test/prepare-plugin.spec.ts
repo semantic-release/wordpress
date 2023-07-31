@@ -140,10 +140,15 @@ describe('Package preparation', () => {
     );
 
     const distFiles = fs.readdirSync(path.join(releasePath, 'dist-test'));
+    const vendorFiles = fs.readdirSync(
+      path.join(releasePath, 'dist-test', 'vendor'),
+    );
     const versionExists = fs.existsSync(path.join(releasePath, 'VERSION'));
 
     expect(distFiles).toHaveLength(3);
     expect(distFiles).toStrictEqual(['dist-test.php', 'test1.php', 'vendor']);
+    expect(vendorFiles).toHaveLength(1);
+    expect(vendorFiles).toStrictEqual(['composer.php']);
     expect(versionExists).toBe(false);
   });
 
