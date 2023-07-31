@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.0.0...v1.0.1) (2023-07-31)
+
+
+### Bug Fixes
+
+* Fixed npmignore ([0bef3e5](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/0bef3e545eb294866a4a1c675ecf5e8be8685ce6))
+
 # 1.0.0 (2023-07-31)
 
 
