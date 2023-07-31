@@ -141,7 +141,7 @@ describe('Package preparation', () => {
 
     const distFiles = fs.readdirSync(path.join(releasePath, 'dist-test'));
     const vendorFiles = fs.readdirSync(
-      path.join(releasePath, 'dist-test/vendor'),
+      path.join(releasePath, 'dist-test', 'vendor'),
     );
     const versionExists = fs.existsSync(path.join(releasePath, 'VERSION'));
 
