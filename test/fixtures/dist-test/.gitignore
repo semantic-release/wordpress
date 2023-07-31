@@ -3,7 +3,6 @@
 config/modules.php
 dist
 node_modules
-vendor
 studio.json
 yarn-error.log
 *.zip
