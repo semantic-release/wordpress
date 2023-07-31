@@ -8,6 +8,8 @@ lib
 jest.config.json
 LICENSE
 README.md
+test
+.vscode
 CHANGELOG.md
 tsconfig.json
 tsconfig.build.json
