@@ -21,10 +21,14 @@ export async function publish(
     ['-qr', path.join(releaseDir, `package.zip`), config.slug],
     {
       cwd: config.releasePath,
+      timeout: 300 * 1000,
     },
   );
 
-  if (packageResult.exitCode !== 0) {
+  if (
+    ('exitCode' in packageResult && packageResult.exitCode !== 0) ||
+    ('code' in packageResult && packageResult.code !== 0)
+  ) {
     throw getError('EZIP', packageResult.stderr);
   }
 
@@ -34,10 +38,14 @@ export async function publish(
       ['-qjr', path.join(releaseDir, `assets.zip`), assetDir],
       {
         cwd: assetDir,
+        timeout: 300 * 1000,
       },
     );
 
-    if (zipResult.exitCode !== 0) {
+    if (
+      ('exitCode' in zipResult && zipResult.exitCode !== 0) ||
+      ('code' in zipResult && zipResult.code !== 0)
+    ) {
       throw getError('EZIP', 'Error creating the zip file');
     }
   }
