@@ -17,20 +17,43 @@ describe('Corner cases affecting releases', () => {
 
     expect(files.sort()).toEqual(
       [
-        '.wordpress-org/**/*',
-        '.editorconfig',
-        '.wordpress-org/**/*',
+        '*.log',
+        '*.phpc',
+        '*.swo',
+        '*.swp',
+        '*phpcs*',
         '.babelrc',
+        '.babelrc*',
         '.browserslistrc',
+        '.browserslistrc*',
         '.codeclimate.yml',
         '.distignore',
+        '.editorconfig',
+        '.env*',
+        '.eslint*',
         '.eslintrc.js',
+        '.git*',
         '.gitignore',
+        '.npm*',
+        '.prettier*',
         '.prettierrc',
         '.releaserc',
+        '.releaserc*',
+        '.stylelint*',
         '.stylelintrc.js',
+        '.sublime-*',
+        '.wordpress-org/**',
+        '.yarn*',
         '.yarnrc.yml',
+        'lerna-debug.log*',
+        'node_modules/**',
+        'npm-debug.log*',
+        'package-debug.log*',
+        'package-lock.json',
+        'package.json',
         'phpcs.xml',
+        'pnpm-debug.log*',
+        'yarn-debug.log*',
       ].sort(),
     );
   });
@@ -45,19 +68,13 @@ describe('Corner cases affecting releases', () => {
     const ignore1 = DEFAULT_EXCLUDES;
     const include2 = getInclude(workDir);
     const ignore2 = getIgnore(workDir);
-    const expected = [
-      'dist-test.php',
-      'test1.php',
-      'vendor/composer.php',
-    ].sort();
+    const expected = ['dist-test.php', 'test1.php', 'vendor'].sort();
 
-    expect(include1.sort()).toEqual([
-      'dist-test.php',
-      'test1.php',
-      'vendor/**/*',
-    ]);
+    expect(include1.sort()).toEqual(['dist-test.php', 'test1.php', 'vendor']);
     expect(
-      (await glob(include1, { cwd: workDir, ignore: ignore1 })).sort(),
+      (
+        await glob(include1, { cwd: workDir, ignore: ignore1, maxDepth: 1 })
+      ).sort(),
     ).toEqual(expected);
     expect(
       (await glob(include2, { cwd: workDir, ignore: ignore2 })).sort(),

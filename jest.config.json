@@ -24,5 +24,6 @@
   "collectCoverageFrom": ["**/*.(t|j)s"],
   "coverageProvider": "v8",
   "coverageDirectory": "../coverage",
-  "testEnvironment": "node"
+  "testEnvironment": "node",
+  "testSequencer": "./test/test-sequencer.cjs"
 }

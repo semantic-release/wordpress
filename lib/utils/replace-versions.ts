@@ -8,12 +8,13 @@ export async function replaceVersions(
   workDir: string,
   files: string[],
   nextVersion: string,
+  currentVersion = '0.0.0',
 ): Promise<SemanticReleaseError[]> {
   const errors: SemanticReleaseError[] = [];
   try {
     const results = await rif.replaceInFile({
       files: files.map((file) => path.join(workDir, file)),
-      from: '0.0.0',
+      from: currentVersion,
       to: nextVersion,
     });
 

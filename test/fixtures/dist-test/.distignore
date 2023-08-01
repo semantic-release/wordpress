@@ -1,11 +1,9 @@
 # Dirs
 .github
 .git/
-.wordpress-org/
 .yarn
 assets
 docker_tag
-node_modules
 
 #fields
 .babelrc

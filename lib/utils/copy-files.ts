@@ -11,7 +11,7 @@ function remapGlobs(workDir: string, includePath: string): string {
   const fullPath = path.join(workDir, includePath);
 
   return !includePath.includes('*') && fs.lstatSync(fullPath).isDirectory()
-    ? path.join(includePath, '**/*')
+    ? path.join(includePath.trimEnd(), '/**')
     : includePath;
 }
 
@@ -26,9 +26,7 @@ function remapGlobs(workDir: string, includePath: string): string {
 export function getInclude(workDir: string, files?: string[]): string[] {
   const include = [...new Set(files ?? getFileArray(workDir, '.distinclude'))];
 
-  return include.length !== 0
-    ? include.map((includePath) => remapGlobs(workDir, includePath))
-    : ['**/*'];
+  return include.length !== 0 ? include : ['**/*'];
 }
 
 /**
@@ -47,8 +45,9 @@ export function getIgnore(workDir: string, files?: string[]): string[] {
   ]
     .filter(
       (ignorePath) =>
-        !ignorePath.includes('*') &&
-        fs.existsSync(path.join(workDir, ignorePath)),
+        ignorePath.includes('*') ||
+        (!ignorePath.includes('*') &&
+          fs.existsSync(path.join(workDir, ignorePath))),
     )
     .map((ignorePath) => remapGlobs(workDir, ignorePath));
 }
@@ -63,6 +62,7 @@ export async function copyFiles(
   const files = await glob(getInclude(workDir, config.include), {
     cwd: workDir,
     ignore: getIgnore(workDir, config.exclude),
+    // maxDepth: 1,
   });
 
   await fs.mkdir(releasePath, { recursive: true });

@@ -3,6 +3,7 @@ import * as os from 'node:os';
 import fs from 'fs-extra';
 import { prepare } from '../lib/prepare.js';
 import * as contexts from './get-context.js';
+import { replaceVersions } from '../lib/utils/replace-versions.js';
 
 function getWorkDir(suffix: string): string {
   const files = fs.readdirSync(os.tmpdir());
@@ -13,7 +14,7 @@ function getWorkDir(suffix: string): string {
   );
 }
 
-describe('Package preparation', () => {
+describe('Package preparation - cusom work directory', () => {
   let releasePath: string;
   let workDir: string;
 
@@ -122,6 +123,30 @@ describe('Package preparation', () => {
       contexts.prepareContext,
     );
   });
+});
+
+describe('Package preparation - default work directory', () => {
+  let releasePath: string;
+
+  beforeEach(() => {
+    releasePath = fs.mkdtempSync(path.join(os.tmpdir(), 'wp-release-'));
+  });
+
+  afterEach(async () => {
+    await replaceVersions(
+      path.resolve('./test/fixtures/dist-test'),
+      ['dist-test.php'],
+      '0.0.0',
+      '1.0.0',
+    );
+    await replaceVersions(
+      path.resolve('./test/fixtures/dist-test'),
+      ['.wordpress-org/readme.txt'],
+      '0.0.0',
+      '1.0.0',
+    );
+    fs.rmSync(releasePath, { recursive: true, force: true });
+  });
 
   it('Should respect the include/exclude files', async () => {
     await prepare(
@@ -129,12 +154,9 @@ describe('Package preparation', () => {
         type: 'plugin',
         slug: 'dist-test',
         path: './test/fixtures/dist-test',
-        copyFiles: true,
-        include: ['dist-test.php', './*.php', 'vendor/**/*'],
-        exclude: [],
+        include: ['dist-test.php', './*.php', 'vendor'],
         withVersionFile: false,
         releasePath,
-        workDir,
       },
       contexts.prepareContext,
     );
@@ -158,13 +180,10 @@ describe('Package preparation', () => {
         type: 'plugin',
         slug: 'dist-test',
         path: './test/fixtures/dist-test',
-        copyFiles: true,
         withVersionFile: true,
         withAssets: true,
         include: ['dist-test.php', './*.php', 'vendor'],
-        exclude: [],
         releasePath,
-        workDir,
       },
       contexts.prepareContext,
     );
