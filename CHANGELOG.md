@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.0.1...v1.0.2) (2023-08-01)
+
+
+### Bug Fixes
+
+* Fixed typescript build errors ([e1b333a](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/e1b333a794225801fcc2f74aca57c6a12ebec9dd))
+
 ## [1.0.1](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.0.0...v1.0.1) (2023-07-31)
 
 
