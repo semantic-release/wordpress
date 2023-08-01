@@ -6,7 +6,9 @@ import getError from './get-error.js';
 import { PluginConfig } from '../classes/plugin-config.class.js';
 
 export async function verifyPlugin(config: PluginConfig): Promise<void> {
-  const pluginPath = path.resolve(config.path ?? './', config.slug);
+  const pluginPath = config.path
+    ? path.resolve(config.path, config.slug)
+    : path.resolve('./');
   const errors: SemanticReleaseError[] = [];
   let pluginFileExists = true;
 
