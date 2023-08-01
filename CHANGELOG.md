@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.3.0...v1.3.1) (2023-08-01)
+
+
+### Bug Fixes
+
+* Implemented success cleanup step ([b8a1217](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/b8a12170e5ab3394f6c126b970743e64c64b6730))
+
 # [1.3.0](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.2.1...v1.3.0) (2023-08-01)
 
 
