@@ -130,7 +130,7 @@ describe('Package preparation', () => {
         slug: 'dist-test',
         path: './test/fixtures/dist-test',
         copyFiles: true,
-        include: ['dist-test.php', './*.php', 'vendor'],
+        include: ['dist-test.php', './*.php', 'vendor/**/*'],
         exclude: [],
         withVersionFile: false,
         releasePath,

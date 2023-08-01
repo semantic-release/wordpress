@@ -96,7 +96,7 @@ it('Should fully prepare a theme for release', async () => {
       withVersionFile: true,
       withAssets: true,
       versionFiles: ['functions.php'],
-      include: ['style.css', '*.php', 'vendor'],
+      include: ['style.css', '*.php', 'vendor/**/*'],
       exclude: [],
       workDir: '1',
     },

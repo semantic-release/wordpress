@@ -5,45 +5,45 @@ import { PluginConfig } from '../classes/plugin-config.class.js';
 import { getFileArray } from './get-file-array.js';
 import { glob } from 'glob';
 import getError from './get-error.js';
+import { DEFAULT_EXCLUDES } from '../constants.js';
 
-const defaultExcludes = [
-  '.git*',
-  '.vscode',
-  '.wordpress-org',
-  '.yarn*',
-  '.editorconfig',
-  '.eslint*',
-  '.npm*',
-  '.prettier*',
-  '.babelrc*',
-  '.browserslistrc*',
-  '.releaserc*',
-  '.stylelint*',
-  '*phpcs*',
-  'node_modules',
-  'composer.json',
-  'composer.lock',
-  'LICENSE',
-  'package.json',
-  'package-lock.json',
-];
+/**
+ * Get the glob include array
+ *
+ * @param workDir Working directory
+ * @param files   Array of files to include
+ * @returns       Array of globs to include
+ */
+export function getInclude(workDir: string, files?: string[]): string[] {
+  const include = files ?? getFileArray(workDir, '.distinclude');
+
+  return include.length > 0 ? [...new Set(include)] : ['**/*'];
+}
+
+/**
+ * Get the glob ignore array
+ *
+ * @param workDir Working directory
+ * @param files   Array of existing files to ignore
+ * @returns       Array of globs to ignore
+ */
+export function getIgnore(workDir: string, files?: string[]): string[] {
+  return [
+    ...new Set([
+      ...DEFAULT_EXCLUDES,
+      ...(files ?? getFileArray(workDir, '.distignore')),
+    ]),
+  ];
+}
 
 export async function copyFiles(
   config: PluginConfig,
   workDir: string,
 ): Promise<SemanticReleaseError[]> {
   const errors: SemanticReleaseError[] = [];
-  const include = config.include ?? getFileArray(workDir, '.distinclude');
-  const ignore = config.exclude ?? getFileArray(workDir, '.distignore');
+  const include = getInclude(workDir, config.include);
+  const ignore = getIgnore(workDir, config.exclude);
   const releasePath = path.resolve(config.releasePath, config.slug);
-
-  if (ignore.length === 0) {
-    ignore.push(...defaultExcludes);
-  }
-
-  if (include.length === 0) {
-    include.push(path.join('**/*'));
-  }
 
   const files = await glob(include, {
     cwd: workDir,
