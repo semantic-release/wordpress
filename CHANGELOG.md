@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.2.0...v1.2.1) (2023-08-01)
+
+
+### Bug Fixes
+
+* Fixed execa exit code checking ([aa123c5](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/aa123c5036d6ddeb25fee2f340003e4c760abbc1))
+
 # [1.2.0](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.1.1...v1.2.0) (2023-08-01)
 
 
