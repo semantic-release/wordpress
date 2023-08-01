@@ -5,6 +5,8 @@ build:
   nodes:
     coverage:
       tests:
+        before:
+          - command: 'npm run test:setup'
         override:
           - command: 'npm run test:cov'
             coverage:
