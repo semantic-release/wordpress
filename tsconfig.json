@@ -26,5 +26,5 @@
     "sourceMap": true,
     "outDir": "dist",
   },
-  "include": ["lib/**/*", "test/**/*", ".eslintrc.cjs"],
+  "include": ["lib/**/*", "test/**/*.ts", ".eslintrc.cjs"],
 }
