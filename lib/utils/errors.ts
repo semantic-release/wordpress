@@ -86,3 +86,10 @@ export function EFILECOPY(file: string) {
     details: `The file copy failed for the following file: ${file}.`,
   };
 }
+
+export function EZIP(zipError: string) {
+  return {
+    message: `Creating ZIP file failed.`,
+    details: `The zip failed with the following error: ${zipError}.`,
+  };
+}

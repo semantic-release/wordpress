@@ -25,7 +25,7 @@ export async function publish(
   );
 
   if (packageResult.exitCode !== 0) {
-    throw getError('EZIP', 'Error creating the zip file');
+    throw getError('EZIP', packageResult.stderr);
   }
 
   if (config.withAssets) {
