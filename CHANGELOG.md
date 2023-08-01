@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.0.2...v1.0.3) (2023-08-01)
+
+
+### Bug Fixes
+
+* Fixed plugin path handling ([d83bdee](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/d83bdee4dc592df8f52a9cb76b5f09c1fb62a924))
+
 ## [1.0.2](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.0.1...v1.0.2) (2023-08-01)
 
 
