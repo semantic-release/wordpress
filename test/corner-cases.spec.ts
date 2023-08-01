@@ -23,7 +23,7 @@ describe('Corner cases affecting releases', () => {
     const include1 = getInclude(workDir, [
       'dist-test.php',
       'test1.php',
-      'vendor/**/*',
+      'vendor',
     ]);
     const ignore1 = DEFAULT_EXCLUDES;
     const include2 = getInclude(workDir);
@@ -34,6 +34,11 @@ describe('Corner cases affecting releases', () => {
       'vendor/composer.php',
     ].sort();
 
+    expect(include1.sort()).toEqual([
+      'dist-test.php',
+      'test1.php',
+      'vendor/**/*',
+    ]);
     expect(
       (await glob(include1, { cwd: workDir, ignore: ignore1 })).sort(),
     ).toEqual(expected);

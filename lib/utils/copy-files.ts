@@ -7,17 +7,28 @@ import { glob } from 'glob';
 import getError from './get-error.js';
 import { DEFAULT_EXCLUDES } from '../constants.js';
 
+function remapGlobs(workDir: string, includePath: string): string {
+  const fullPath = path.join(workDir, includePath);
+
+  return !includePath.includes('*') && fs.lstatSync(fullPath).isDirectory()
+    ? path.join(includePath, '**/*')
+    : includePath;
+}
+
 /**
  * Get the glob include array
+ *
  *
  * @param workDir Working directory
  * @param files   Array of files to include
  * @returns       Array of globs to include
  */
 export function getInclude(workDir: string, files?: string[]): string[] {
-  const include = files ?? getFileArray(workDir, '.distinclude');
+  const include = [...new Set(files ?? getFileArray(workDir, '.distinclude'))];
 
-  return include.length > 0 ? [...new Set(include)] : ['**/*'];
+  return include.length !== 0
+    ? include.map((includePath) => remapGlobs(workDir, includePath))
+    : ['**/*'];
 }
 
 /**
