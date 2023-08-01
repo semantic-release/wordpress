@@ -1,4 +1,5 @@
 build:
+  image: default-jammy
   environment:
     node: 'v18.17.0'
   nodes:
