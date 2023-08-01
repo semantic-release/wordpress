@@ -40,7 +40,6 @@ export const DEFAULT_EXCLUDES = [
   'phpunit.xml', // Exclude PHPUnit configuration file
   'phpunit.xml.dist', // Exclude PHPUnit configuration file (dist version)
   'phpunit', // Exclude PHPUnit output directory
-  'vendor', // Exclude Composer dependencies directory
   'composer.phar', // Exclude Composer PHAR file
   '.phpstorm.meta.php', // Exclude PhpStorm meta file
   '.idea', // Exclude PhpStorm IDE settings

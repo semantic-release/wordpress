@@ -44,7 +44,13 @@ export function getIgnore(workDir: string, files?: string[]): string[] {
       ...DEFAULT_EXCLUDES,
       ...(files ?? getFileArray(workDir, '.distignore')),
     ]),
-  ];
+  ]
+    .filter(
+      (ignorePath) =>
+        !ignorePath.includes('*') &&
+        fs.existsSync(path.join(workDir, ignorePath)),
+    )
+    .map((ignorePath) => remapGlobs(workDir, ignorePath));
 }
 
 export async function copyFiles(
@@ -52,13 +58,11 @@ export async function copyFiles(
   workDir: string,
 ): Promise<SemanticReleaseError[]> {
   const errors: SemanticReleaseError[] = [];
-  const include = getInclude(workDir, config.include);
-  const ignore = getIgnore(workDir, config.exclude);
   const releasePath = path.resolve(config.releasePath, config.slug);
 
-  const files = await glob(include, {
+  const files = await glob(getInclude(workDir, config.include), {
     cwd: workDir,
-    ignore,
+    ignore: getIgnore(workDir, config.exclude),
   });
 
   await fs.mkdir(releasePath, { recursive: true });

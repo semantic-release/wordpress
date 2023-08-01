@@ -13,9 +13,26 @@ describe('Corner cases affecting releases', () => {
   });
 
   it('Should properly create the ignore file array', () => {
-    const files = getIgnore('/test/fixtures');
+    const files = getIgnore('./test/fixtures/dist-test');
 
-    expect(files.sort()).toEqual(DEFAULT_EXCLUDES.sort());
+    expect(files.sort()).toEqual(
+      [
+        '.wordpress-org/**/*',
+        '.editorconfig',
+        '.wordpress-org/**/*',
+        '.babelrc',
+        '.browserslistrc',
+        '.codeclimate.yml',
+        '.distignore',
+        '.eslintrc.js',
+        '.gitignore',
+        '.prettierrc',
+        '.releaserc',
+        '.stylelintrc.js',
+        '.yarnrc.yml',
+        'phpcs.xml',
+      ].sort(),
+    );
   });
 
   it('Should glob properly', async () => {
