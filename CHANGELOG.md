@@ -1,3 +1,17 @@
+# [1.2.0](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.1.1...v1.2.0) (2023-08-01)
+
+
+### Features
+
+* Added ZIP error ([a00def2](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/a00def2dfaa15a9029a84722a306834f77cf2e74))
+
+## [1.1.1](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.1.0...v1.1.1) (2023-08-01)
+
+
+### Bug Fixes
+
+* Improved globbing mechanism ([2390b85](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/2390b857f7160fac943f551222f8b7b13d767e96))
+
 # [1.1.0](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.0.4...v1.1.0) (2023-08-01)
 
 
