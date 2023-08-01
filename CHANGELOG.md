@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.1.0...v1.1.1) (2023-08-01)
+
+
+### Bug Fixes
+
+* Improved globbing mechanism ([2390b85](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/2390b857f7160fac943f551222f8b7b13d767e96))
+
 # [1.1.0](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.0.4...v1.1.0) (2023-08-01)
 
 
