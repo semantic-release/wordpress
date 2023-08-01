@@ -14,7 +14,8 @@
     "watch": "rimraf dist && tsc --watch",
     "build:production": "rimraf dist && tsc --project tsconfig.build.json",
     "lint": "eslint lib/*.ts",
-    "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest",
+    "test:setup": "cd ./test/fixtures/dist-test && npm install",
+    "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest -i",
     "test:watch": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest --watch -i",
     "test:cov": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest --coverage -i",
     "semantic-release": "semantic-release"
