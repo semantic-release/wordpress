@@ -1,0 +1,11 @@
+build:
+  environment:
+    node: 18
+  nodes:
+    coverage:
+      tests:
+        override:
+          - command: 'npm run test:cov'
+            coverage:
+              file: coverage/clover.xml
+              format: clover
