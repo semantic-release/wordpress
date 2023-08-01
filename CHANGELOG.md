@@ -1,3 +1,18 @@
+# [1.3.0](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.2.1...v1.3.0) (2023-08-01)
+
+
+### Bug Fixes
+
+* Fixed changelog ([10d73ef](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/10d73ef15889cfed1e4938f7869152d177db50c1))
+* Fixed semantic release publish ([a418d74](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/a418d74ef06316e806011ae4a15174b37e91a01b))
+* Fixed semantic release publish ([8541dfc](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/8541dfc86e98270e74d8c3e89738610b181d9a5a))
+
+
+### Features
+
+* Improved performance for globbing ([da62879](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/da62879871c3700eea823deed0ffc4b627318a79))
+* Modified workflow to include test node_modules ([4bfd447](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/4bfd44731bdc65010953b5cec6b6f71f3a1cbefc))
+
 ## [1.2.1](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.2.0...v1.2.1) (2023-08-01)
 
 
