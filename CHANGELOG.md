@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.0.4...v1.1.0) (2023-08-01)
+
+
+### Features
+
+* Implemented glob extensions for include paths ([b8b7b55](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/b8b7b55770e52fb1b4d5adcd06499113f92dccbf))
+
 ## [1.0.4](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.0.3...v1.0.4) (2023-08-01)
 
 
