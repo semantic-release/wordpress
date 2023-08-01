@@ -1,6 +1,6 @@
 build:
   environment:
-    node: 18
+    node: v18
   nodes:
     coverage:
       tests:
