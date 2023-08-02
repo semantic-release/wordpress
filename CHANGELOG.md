@@ -1,3 +1,16 @@
+# [1.4.0](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.3.1...v1.4.0) (2023-08-02)
+
+
+### Bug Fixes
+
+* Implemented theme packaging ([a7f8c2b](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/a7f8c2b2621aca627d5d5201da14828559ff475a))
+
+
+### Features
+
+* Changed theme screenshot handling ([9a4bb65](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/9a4bb65e9f282293c89eaa59f207c2b96fac36ad))
+* Improved verification and asset handling ([7c7941f](https://github.com/oblakstudio/semantic-release-wp-plugin/commit/7c7941f94428337e2fc762f2f19000fb025d453a))
+
 ## [1.3.1](https://github.com/oblakstudio/semantic-release-wp-plugin/compare/v1.3.0...v1.3.1) (2023-08-01)
 
 
