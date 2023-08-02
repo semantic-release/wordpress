@@ -10,39 +10,33 @@ export async function verifyPlugin(config: PluginConfig): Promise<void> {
     ? path.resolve(config.path, config.slug)
     : path.resolve('./');
   const errors: SemanticReleaseError[] = [];
-  let pluginFileExists = true;
 
   if (!(await fs.pathExists(path.resolve(pluginPath, `${config.slug}.php`)))) {
-    pluginFileExists = false;
-    errors.push(getError('EPLUGINFILENOTFOUND', `${config.slug}`));
+    throw new AggregateError([
+      getError('EPLUGINFILENOTFOUND', `${config.slug}`),
+    ]);
   }
 
-  if (pluginFileExists) {
-    try {
-      const pluginFile = await fs.readFile(
-        path.resolve(pluginPath, `${config.slug}.php`),
-        'utf-8',
-      );
+  try {
+    const pluginFile = await fs.readFile(
+      path.resolve(pluginPath, `${config.slug}.php`),
+      'utf-8',
+    );
 
-      if (!pluginFile.includes('Plugin Name:')) {
-        errors.push(getError('EPLUGINFILEINVALID', `${config.slug}`));
-      }
-
-      const version = pluginFile.match(/Version:\s*(\d+\.\d+\.\d+)/);
-
-      if (version !== null && version[1] !== '0.0.0') {
-        errors.push(getError('EPLUGINFILEVERSION', version[1]));
-      }
-    } catch (err) {
-      if (err instanceof Error) {
-        errors.push(
-          new SemanticReleaseError(err.message, 'EINVALIDPLUGIN', ''),
-        );
-      }
+    if (!pluginFile.includes('Plugin Name:')) {
+      errors.push(getError('EPLUGINFILEINVALID', `${config.slug}`));
     }
-  }
 
-  if (errors.length > 0) {
+    const version = pluginFile.match(/Version:\s*(\d+\.\d+\.\d+)/);
+
+    if (version !== null && version[1] !== '0.0.0') {
+      errors.push(getError('EPLUGINFILEVERSION', version[1]));
+    }
+  } catch (err) {
+    if (err instanceof Error) {
+      errors.push(new SemanticReleaseError(err.message, 'EINVALIDPLUGIN', ''));
+    }
+
     throw new AggregateError(errors);
   }
 }

@@ -4,6 +4,20 @@ import SemanticReleaseError from '@semantic-release/error';
 import { ValidationError } from 'class-validator';
 import getError from './get-error.js';
 
+declare type ErrorKeys =
+  | 'TYPE'
+  | 'WITHASSETS'
+  | 'WITHREADME'
+  | 'WITHVERSIONFILE'
+  | 'PATH'
+  | 'COPYFILES'
+  | 'RELEASEPATH'
+  | 'WORKDIR'
+  | 'SLUG'
+  | 'VERSIONFILES'
+  | 'INCLUDE'
+  | 'EXCLUDE';
+
 export default async function verifyConfig(
   pluginConfig: PluginConfig,
 ): Promise<SemanticReleaseError[]> {
@@ -13,7 +27,7 @@ export default async function verifyConfig(
   } catch (err) {
     if (Array.isArray(err)) {
       return err.map((e: ValidationError) =>
-        getError(`EINVALID${e.property.toUpperCase()}`, e.value),
+        getError(`EINVALID${e.property.toUpperCase() as ErrorKeys}`, e.value),
       );
     }
 

@@ -3,7 +3,7 @@ import { verifyConditions } from '../lib/verify-conditions.js';
 import SemanticReleaseError from '@semantic-release/error';
 import { VerifyConditionsContext } from 'semantic-release';
 
-describe('Plugin verification', () => {
+describe('Theme verification', () => {
   let context: VerifyConditionsContext;
 
   beforeEach(() => {
@@ -33,12 +33,12 @@ describe('Plugin verification', () => {
     }
   });
 
-  it('Should throw error on invalid plugin', async () => {
+  it('Should throw error on invalid theme', async () => {
     try {
       await verifyConditions(
         {
-          type: 'plugin',
-          slug: 'bad-plugin',
+          type: 'theme',
+          slug: 'bad-theme',
           path: './test/fixtures',
         },
         context,
@@ -47,16 +47,16 @@ describe('Plugin verification', () => {
       expect(err).toBeInstanceOf(AggregateError);
       expect(
         ((err as AggregateError).errors[0] as SemanticReleaseError).code,
-      ).toBe('EPLUGINFILENOTFOUND');
+      ).toBe('ETHEMEFILENOTFOUND');
     }
   });
 
-  it('Should throw error on invalid plugin version', async () => {
+  it('Should throw error on invalid theme version', async () => {
     try {
       await verifyConditions(
         {
-          type: 'plugin',
-          slug: 'bad-version',
+          type: 'theme',
+          slug: 'bad-theme-version',
           path: './test/fixtures',
         },
         context,
@@ -64,16 +64,16 @@ describe('Plugin verification', () => {
     } catch (err) {
       expect(
         ((err as AggregateError).errors[0] as SemanticReleaseError).code,
-      ).toBe('EPLUGINFILEVERSION');
+      ).toBe('ETHEMEFILEVERSION');
     }
   });
 
-  it('Should throw error on plugin without valid header', async () => {
+  it('Should throw error on theme without valid header', async () => {
     try {
       await verifyConditions(
         {
-          type: 'plugin',
-          slug: 'other-bad-plugin',
+          type: 'theme',
+          slug: 'theme-bad-header',
           path: './test/fixtures',
         },
         context,
@@ -81,17 +81,17 @@ describe('Plugin verification', () => {
     } catch (err) {
       expect(
         ((err as AggregateError).errors[0] as SemanticReleaseError).code,
-      ).toBe('EPLUGINFILEINVALID');
+      ).toBe('ETHEMEFILEINVALID');
     }
   });
 
-  it('Should pass validation on valid plugin', async () => {
+  it('Should pass validation on valid theme', async () => {
     expect(
       async () =>
         await verifyConditions(
           {
-            type: 'plugin',
-            slug: 'plugin1',
+            type: 'theme',
+            slug: 'complete-theme',
             path: './test/fixtures',
           },
           context,

@@ -4,6 +4,7 @@ import AggregateError from 'aggregate-error';
 import { verifyPlugin } from './utils/verify-plugin.js';
 import { VerifyConditionsContext } from 'semantic-release';
 import getError from './utils/get-error.js';
+import { verifyTheme } from './utils/verify-theme.js';
 
 export async function verifyConditions(
   pluginConfig: PluginConfig,
@@ -15,6 +16,7 @@ export async function verifyConditions(
   try {
     switch (pluginConfig.type) {
       case 'theme':
+        await verifyTheme(pluginConfig);
         break;
       case 'plugin':
         await verifyPlugin(pluginConfig);

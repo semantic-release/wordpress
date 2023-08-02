@@ -15,13 +15,15 @@ export async function publish(
   const releaseDir = path.resolve(config.releasePath);
   const assetDir = path.resolve(releaseDir, 'assets');
   const versionFile = path.resolve(releaseDir, 'VERSION');
+  const zipCommand = process.env.ZIP_COMMAND ?? 'zip';
 
   const packageResult = await execa(
-    'zip',
+    zipCommand,
     ['-qr', path.join(releaseDir, `package.zip`), config.slug],
     {
+      reject: false,
       cwd: config.releasePath,
-      timeout: 300 * 1000,
+      timeout: 30 * 1000,
     },
   );
 
@@ -29,24 +31,25 @@ export async function publish(
     ('exitCode' in packageResult && packageResult.exitCode !== 0) ||
     ('code' in packageResult && packageResult.code !== 0)
   ) {
+    console.log(packageResult);
     throw getError('EZIP', packageResult.stderr);
   }
 
   if (config.withAssets) {
     const zipResult = await execa(
-      'zip',
+      zipCommand,
       ['-qjr', path.join(releaseDir, `assets.zip`), assetDir],
       {
+        reject: false,
         cwd: assetDir,
-        timeout: 300 * 1000,
+        timeout: 30 * 1000,
       },
     );
-
     if (
       ('exitCode' in zipResult && zipResult.exitCode !== 0) ||
       ('code' in zipResult && zipResult.code !== 0)
     ) {
-      throw getError('EZIP', 'Error creating the zip file');
+      throw getError('EZIP', zipResult.stderr);
     }
   }
 
