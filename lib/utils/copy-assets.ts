@@ -13,7 +13,9 @@ export async function copyAssets(
   const basePath = path.resolve(path.join(workDir, '.wordpress-org', 'assets'));
 
   const assets = await glob(
-    ['screenshot-*', 'banner-*'].map((g) => `${g}.{jpg,png,gif,jpeg}`),
+    ['screenshot', 'screenshot-*', 'banner-*'].map(
+      (g) => `${g}.{jpg,png,gif,jpeg}`,
+    ),
     {
       cwd: basePath,
     },
@@ -29,22 +31,6 @@ export async function copyAssets(
     await fs.copy(
       path.resolve(path.join(basePath, asset)),
       path.resolve(path.join(assetPath, asset)),
-      {
-        preserveTimestamps: true,
-      },
-    );
-  }
-
-  // Copy the theme screenshot.jpg
-  if (
-    config.type === 'theme' &&
-    fs.existsSync(path.join(basePath, 'screenshot.jpg'))
-  ) {
-    await fs.copy(
-      path.resolve(path.join(basePath, 'screenshot.jpg')),
-      path.resolve(
-        path.join(config.releasePath, config.slug, 'screenshot.jpg'),
-      ),
       {
         preserveTimestamps: true,
       },
