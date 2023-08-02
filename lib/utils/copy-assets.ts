@@ -1,28 +1,24 @@
 import * as path from 'node:path';
 import fs from 'fs-extra';
-import SemanticReleaseError from '@semantic-release/error';
 import { PluginConfig } from '../classes/plugin-config.class.js';
 import { glob } from 'glob';
 
 export async function copyAssets(
   config: PluginConfig,
   workDir: string,
-): Promise<SemanticReleaseError[]> {
-  const errors: SemanticReleaseError[] = [];
+): Promise<void> {
   const assetPath = path.resolve(path.join(config.releasePath, 'assets'));
   const basePath = path.resolve(path.join(workDir, '.wordpress-org', 'assets'));
 
   const assets = await glob(
-    ['screenshot', 'screenshot-*', 'banner-*'].map(
-      (g) => `${g}.{jpg,png,gif,jpeg}`,
-    ),
+    ['screenshot*', 'banner-*'].map((g) => `${g}.{jpg,png,gif,jpeg}`),
     {
       cwd: basePath,
     },
   );
 
   if (assets.length === 0) {
-    return errors;
+    return;
   }
 
   await fs.mkdir(assetPath, { recursive: true });
@@ -37,5 +33,15 @@ export async function copyAssets(
     );
   }
 
-  return errors;
+  const screenshots = await glob('screenshot.*', { cwd: basePath });
+
+  if (config.type !== 'theme' || screenshots.length === 0) {
+    return;
+  }
+
+  await fs.copy(
+    path.resolve(path.join(basePath, screenshots[0])),
+    path.resolve(path.join(config.releasePath, config.slug, screenshots[0])),
+    { preserveTimestamps: true },
+  );
 }

@@ -142,7 +142,7 @@ Your Configuration is: ${exclude}.`,
   };
 }
 
-export function EPLUGINFILENOTFOUND(slug: string) {
+export function EINVALIDPLUGIN(slug: string) {
   return {
     message: `Plugin file not found: ${slug}.php`,
     details: `The [slug option](${linkify(

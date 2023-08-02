@@ -114,9 +114,10 @@ it('Should fully prepare a theme for release', async () => {
   expect(themeDir.sort()).toStrictEqual(
     ['screenshot.jpg', 'style.css', 'vendor', 'functions.php'].sort(),
   );
-  expect(assets).toHaveLength(4);
+  expect(assets).toHaveLength(5);
   expect(assets.sort()).toStrictEqual(
     [
+      'screenshot.jpg',
       'banner-low.jpg',
       'banner-high.jpg',
       'screenshot-1.jpg',

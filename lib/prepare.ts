@@ -54,7 +54,7 @@ export async function prepare(
     return;
   }
 
-  errors.push(...(await copyAssets(config, workDir)));
+  await copyAssets(config, workDir);
 
   if (errors.length) {
     throw new AggregateError(errors);

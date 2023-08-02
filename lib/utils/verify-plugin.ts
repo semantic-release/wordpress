@@ -11,13 +11,12 @@ export async function verifyPlugin(config: PluginConfig): Promise<void> {
     : path.resolve('./');
   const errors: SemanticReleaseError[] = [];
 
-  if (!(await fs.pathExists(path.resolve(pluginPath, `${config.slug}.php`)))) {
-    throw new AggregateError([
-      getError('EPLUGINFILENOTFOUND', `${config.slug}`),
-    ]);
-  }
-
   try {
+    if (
+      !(await fs.pathExists(path.resolve(pluginPath, `${config.slug}.php`)))
+    ) {
+      throw new Error(config.slug);
+    }
     const pluginFile = await fs.readFile(
       path.resolve(pluginPath, `${config.slug}.php`),
       'utf-8',
@@ -34,7 +33,7 @@ export async function verifyPlugin(config: PluginConfig): Promise<void> {
     }
   } catch (err) {
     if (err instanceof Error) {
-      errors.push(new SemanticReleaseError(err.message, 'EINVALIDPLUGIN', ''));
+      errors.push(getError('EINVALIDPLUGIN', err.message));
     }
 
     throw new AggregateError(errors);

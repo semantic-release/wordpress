@@ -3,6 +3,8 @@ import { DEFAULT_EXCLUDES } from '../lib/constants.js';
 import { getIgnore, getInclude } from '../lib/utils/copy-files.js';
 import { getFileArray } from '../lib/utils/get-file-array.js';
 import * as path from 'node:path';
+import verifyConfig from '../lib/utils/verify-config.js';
+import { PluginConfig } from '../lib/classes/plugin-config.class.js';
 
 describe('Corner cases affecting releases', () => {
   it('Should fail to read non-existant file', () => {
@@ -10,6 +12,25 @@ describe('Corner cases affecting releases', () => {
       const files = getFileArray('/test', 'non-existant-file.txt');
       expect(files).toEqual([]);
     } catch (err) {}
+  });
+
+  it('Should throw shit-ton of errors on invalid config', async () => {
+    const errors = await verifyConfig({
+      type: 'kurcina',
+      withAssets: '1',
+      withReadme: '11',
+      withVersionFile: '111',
+      path: true,
+      copyFiles: 'lalala',
+      releasePath: true,
+      workDir: 1,
+      slug: true,
+      versionFiles: 1,
+      include: 1,
+      exclude: 1,
+    } as unknown as PluginConfig);
+
+    expect(errors.length).toBe(12);
   });
 
   it('Should properly create the ignore file array', () => {

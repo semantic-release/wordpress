@@ -47,7 +47,7 @@ describe('Plugin verification', () => {
       expect(err).toBeInstanceOf(AggregateError);
       expect(
         ((err as AggregateError).errors[0] as SemanticReleaseError).code,
-      ).toBe('EPLUGINFILENOTFOUND');
+      ).toBe('EINVALIDPLUGIN');
     }
   });
 

@@ -31,7 +31,6 @@ export async function publish(
     ('exitCode' in packageResult && packageResult.exitCode !== 0) ||
     ('code' in packageResult && packageResult.code !== 0)
   ) {
-    console.log(packageResult);
     throw getError('EZIP', packageResult.stderr);
   }
 
