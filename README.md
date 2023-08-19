@@ -2,15 +2,16 @@
 
 [**semantic-release**](https://github.com/semantic-release/semantic-release) plugin to create a zip file for a [WordPress](https://wordpress.org) plugin or theme.
 
-![node-current](https://img.shields.io/node/v/semantic-release-wp-plugin)
-[![npm](https://img.shields.io/npm/v/semantic-release-wp-plugin)](https://www.npmjs.com/package/semantic-release-wp-plugin) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-[![Release](https://github.com/oblakstudio/semantic-release-wp-plugin/actions/workflows/release.yml/badge.svg?branch=master)](https://github.com/oblakstudio/semantic-release-wp-plugin/actions/workflows/release.yml)
+![node-current (scoped)](https://img.shields.io/node/v/%40semantic-release/wordpress)
+[![npm (scoped)](https://img.shields.io/npm/v/%40semantic-release/wordpress)](https://www.npmjs.com/package/@semantic-release/wordpress)
+[![Release](https://github.com/semantic-release/wordpress/actions/workflows/release.yml/badge.svg)](https://github.com/semantic-release/wordpress/actions/workflows/release.yml)
 ![Scrutinizer coverage (GitHub/BitBucket)](https://img.shields.io/scrutinizer/coverage/g/oblakstudio/semantic-release-wp-plugin/master)
 
 | Step               | Description                                                                                                     |
 |--------------------|-----------------------------------------------------------------------------------------------------------------|
 | `verifyConditions` | Verify if the theme / plugin is valid. Check that the necessary files exist and if they contain needed metadata |
-| `prepare`          | Create a zip file for the theme / plugin, and optionally zip the assets                                         |
+| `prepare`          | Copy the theme / plugins files and optionally prepare the asset bundle                                          |
+| `publish`          | Create a zip file for the theme / plugin, and optionally zip the assets                                         |
 | `success`          | Clean up the intermediate files                                                                                 |
 
 ## Install
