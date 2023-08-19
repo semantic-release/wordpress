@@ -1,4 +1,3 @@
-import AggregateError from 'aggregate-error';
 import { verifyConditions } from '../lib/verify-conditions.js';
 import SemanticReleaseError from '@semantic-release/error';
 import { VerifyConditionsContext } from 'semantic-release';

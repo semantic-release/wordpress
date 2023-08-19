@@ -65,8 +65,6 @@ Plugin uses no environment variables, but has a lot of configuration options
 
 ### Versioning
 
-**Version in your plugin / theme must be set to 0.0.0 for this plugin to work**
-
 Plugin will automatically replace versions in your main file (for plugins) and the ``style.css`` file (for themes).
 We follow the WordPress codex, so your plugin file must have the same slug as the plugin folder.
 
@@ -74,11 +72,17 @@ If you have other variables which need to have the version replaced, you can add
 
 If you need any further processing of the package files, next release version will be output to `/tmp/wp-release/VERSION` file, if the `withVersionFile` option is set to `true`.
 
+> **Warning**
+> Version in your plugin / theme must be set to 0.0.0 for this plugin to work
+
 ### Assets
 If your package is on [wp.org](https://wordpress.org) repository, you might have assets (screenshots, banners, logos) which you want to include in the assets file. Plugin respects the Codex, and expects those to be in ``.wordpress-org/assets`` folder. Main theme screenshot should be named ``screenshot`` and should be there as well.
 
 ### Readme
-readme.txt is a special Markdown file needed for packages on [wp.org](https://wordpress.org) to work. It needs to be in the `.wordpress-org` folder, and the version should be `0.0.0` as well. Plugin will automatically replace the version in the file if the `withReadme` option is set to `true`.
+readme.txt is a special Markdown file needed for packages on [wp.org](https://wordpress.org) to work. It needs to be in the `.wordpress-org` folder. Plugin will automatically replace the version in the file if the `withReadme` option is set to `true`.
+
+> ** Warning**
+> Version in your readme.txt must also be set to 0.0.0 for this plugin to work
 
 ### Include / Exclude
 By default, plugin will include all files in the package zip file. If you want to exclude some files, you can use the `exclude` option. It accepts an array of files and folders, and uses [glob](https://npmjs.com/package/glob) for path resolution.
@@ -91,6 +95,7 @@ You can also use the `include` option which works in the same manner.
  * By default we exclude a lot of build artifacts and files which are not needed in the package. You can see the full list in [constants.ts](lib/constants.ts).
 
 ### Examples
+
 Plugin with assets, readme and additional version files
 
 ```json
