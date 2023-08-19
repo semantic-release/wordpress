@@ -1,5 +1,6 @@
 {
   "name": "@semantic-release/wordpress",
+  "description": "semantic-release plugin to publish a WordPress plugin or theme",
   "version": "0.0.0-development",
   "license": "MIT",
   "author": "Sibin Grasic <sibin.grasic@oblak.studio> (https://oblak.studio)",
