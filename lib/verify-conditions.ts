@@ -1,6 +1,5 @@
 import { PluginConfig } from './classes/plugin-config.class.js';
 import verifyConfig from './utils/verify-config.js';
-import AggregateError from 'aggregate-error';
 import { verifyPlugin } from './utils/verify-plugin.js';
 import { VerifyConditionsContext } from 'semantic-release';
 import getError from './utils/get-error.js';

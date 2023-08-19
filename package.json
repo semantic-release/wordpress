@@ -1,13 +1,17 @@
 {
-  "name": "semantic-release-wp-plugin",
-  "version": "0.0.0",
+  "name": "@semantic-release/wordpress",
+  "version": "0.0.0-development",
   "license": "MIT",
-  "contributors": [],
+  "author": "Sibin Grasic <sibin.grasic@oblak.studio> (https://oblak.studio)",
+  "contributors": [
+    "Gregor Martynus (https://twitter.com/gr2m)",
+    "Matt Travi <npm@travi.org> (https://matt.travi.org/)"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/oblakstudio/semantic-release-wp-plugin.git"
+    "url": "git+https://github.com/semantic-release/wordpress.git"
   },
-  "bugs": "https://githu.com/oblakstudio/semantic-release-wp-plugin/issues",
+  "bugs": "https://githu.com/semantic-release/wordpress/issues",
   "keywords": [],
   "scripts": {
     "build": "rimraf dist && tsc --project tsconfig.build.json",
@@ -28,7 +32,6 @@
   "types": "dist/index.d.ts",
   "dependencies": {
     "@semantic-release/error": "^4.0.0",
-    "aggregate-error": "^4.0.1",
     "class-transformer": "^0.5.1",
     "class-transformer-validator": "^0.9.1",
     "class-validator": "^0.14.0",

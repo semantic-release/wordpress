@@ -1,6 +1,5 @@
 import * as path from 'node:path';
 import fs from 'fs-extra';
-import AggregateError from 'aggregate-error';
 import SemanticReleaseError from '@semantic-release/error';
 import getError from './get-error.js';
 import { PluginConfig } from '../classes/plugin-config.class.js';
