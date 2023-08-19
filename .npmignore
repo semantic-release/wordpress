@@ -5,6 +5,8 @@ lib
 .editorconfig
 .eslintrc.cjs
 .prettierrc
+CODE_OF_CONDUCT.md
+CODE_OF_CONDUCT.md
 jest.config.json
 LICENSE
 README.md
@@ -13,4 +15,4 @@ test
 .vscode
 CHANGELOG.md
 tsconfig.*
-renovate.json
+scrutinizer.yml

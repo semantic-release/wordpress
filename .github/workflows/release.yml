@@ -25,6 +25,8 @@ jobs:
           node-version: lts/*
       - run: npm clean-install
       - run: npm audit signatures
+      - name: Build
+        run: 'npm run build:production'
       # pinned version updated automatically by Renovate.
       # details at https://semantic-release.gitbook.io/semantic-release/usage/installation#global-installation
       - run: npm run semantic-release
