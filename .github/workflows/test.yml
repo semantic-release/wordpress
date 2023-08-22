@@ -38,6 +38,7 @@ jobs:
       - run: npm clean-install
       - name: Ensure dependencies are compatible with the version of node
         run: npx ls-engines
+      - run: npm run test:setup
       - run: npm run test
 
   # separate job to set as required in branch protection,
