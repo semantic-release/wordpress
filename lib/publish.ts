@@ -3,7 +3,7 @@ import fs from 'fs-extra';
 import { PublishContext } from 'semantic-release';
 import { PluginConfig } from './classes/plugin-config.class.js';
 import { transformAndValidate } from 'class-transformer-validator';
-import execa from 'execa';
+import { execa } from 'execa';
 import getError from './utils/get-error.js';
 
 export async function publish(
