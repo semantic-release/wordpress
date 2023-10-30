@@ -87,12 +87,17 @@ it('Should fail on a non-existant version file', async () => {
 });
 
 it('Should fully prepare a theme for release', async () => {
+  await fs.copy(
+    './test/fixtures/complete-theme',
+    './test/fixtures/complete-theme-copy',
+  );
+
   await prepare(
     {
       type: 'theme',
-      slug: 'complete-theme',
-      path: './test/fixtures/complete-theme',
-      copyFiles: true,
+      slug: 'complete-theme-copy',
+      path: './test/fixtures/complete-theme-copy',
+      copyFiles: false,
       withVersionFile: true,
       withAssets: true,
       versionFiles: ['functions.php'],
@@ -103,10 +108,10 @@ it('Should fully prepare a theme for release', async () => {
     context,
   );
 
-  const themeDir = fs.readdirSync('/tmp/wp-release/complete-theme');
+  const themeDir = fs.readdirSync('/tmp/wp-release/complete-theme-copy');
   const assets = fs.readdirSync('/tmp/wp-release/assets');
   const versions = fs.readFileSync(
-    '/tmp/workDir-1/complete-theme/functions.php',
+    '/tmp/workDir-1/complete-theme-copy/functions.php',
     'utf8',
   );
 
@@ -126,4 +131,9 @@ it('Should fully prepare a theme for release', async () => {
   );
   expect(versions).toMatch(/1\.0\.0/);
   expect(versions).toMatch(/3\.2\.111/);
+
+  await fs.rm('./test/fixtures/complete-theme-copy', {
+    recursive: true,
+    force: true,
+  });
 });
