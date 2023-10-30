@@ -25,7 +25,7 @@ export async function prepare(
     ? path.join(
         path.join(os.tmpdir(), `workDir-${config.workDir}`, config.slug),
       )
-    : path.resolve(path.resolve(config.path));
+    : path.resolve(config.path);
 
   if (config.copyFiles) {
     await fs.mkdir(workDir, { recursive: true });
