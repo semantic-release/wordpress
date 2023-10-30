@@ -111,7 +111,7 @@ it('Should fully prepare a theme for release', async () => {
   const themeDir = fs.readdirSync('/tmp/wp-release/complete-theme-copy');
   const assets = fs.readdirSync('/tmp/wp-release/assets');
   const versions = fs.readFileSync(
-    '/tmp/workDir-1/complete-theme-copy/functions.php',
+    './test/fixtures/complete-theme-copy/functions.php',
     'utf8',
   );
 
