@@ -63,7 +63,7 @@
     "rimraf": "5.0.5",
     "semantic-release": "22.0.6",
     "signale": "1.4.0",
-    "sinon": "17.0.0",
+    "sinon": "17.0.1",
     "ts-jest": "29.1.1",
     "typescript": "5.2.2"
   },
