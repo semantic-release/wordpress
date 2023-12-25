@@ -6,7 +6,7 @@ import { PluginConfig } from '../classes/plugin-config.class.js';
 
 export async function verifyPlugin(config: PluginConfig): Promise<void> {
   const pluginPath = config.path
-    ? path.resolve(config.path, config.slug)
+    ? path.resolve(config.path)
     : path.resolve('./');
   const errors: SemanticReleaseError[] = [];
 
