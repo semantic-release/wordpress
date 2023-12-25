@@ -38,7 +38,7 @@ describe('Plugin verification', () => {
         {
           type: 'plugin',
           slug: 'bad-plugin',
-          path: './test/fixtures',
+          path: './test/fixtures/bad-plugin',
         },
         context,
       );
@@ -56,7 +56,7 @@ describe('Plugin verification', () => {
         {
           type: 'plugin',
           slug: 'bad-version',
-          path: './test/fixtures',
+          path: './test/fixtures/bad-version',
         },
         context,
       );
@@ -73,7 +73,7 @@ describe('Plugin verification', () => {
         {
           type: 'plugin',
           slug: 'other-bad-plugin',
-          path: './test/fixtures',
+          path: './test/fixtures/other-bad-plugin',
         },
         context,
       );
@@ -91,7 +91,7 @@ describe('Plugin verification', () => {
           {
             type: 'plugin',
             slug: 'plugin1',
-            path: './test/fixtures',
+            path: './test/fixtures/plugin1',
           },
           context,
         ),

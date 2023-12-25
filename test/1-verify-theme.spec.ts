@@ -38,7 +38,7 @@ describe('Theme verification', () => {
         {
           type: 'theme',
           slug: 'bad-theme',
-          path: './test/fixtures',
+          path: './test/fixtures/bad-theme',
         },
         context,
       );
@@ -56,7 +56,7 @@ describe('Theme verification', () => {
         {
           type: 'theme',
           slug: 'bad-theme-version',
-          path: './test/fixtures',
+          path: './test/fixtures/bad-theme-version',
         },
         context,
       );
@@ -73,7 +73,7 @@ describe('Theme verification', () => {
         {
           type: 'theme',
           slug: 'theme-bad-header',
-          path: './test/fixtures',
+          path: './test/fixtures/theme-bad-header',
         },
         context,
       );
@@ -91,7 +91,7 @@ describe('Theme verification', () => {
           {
             type: 'theme',
             slug: 'complete-theme',
-            path: './test/fixtures',
+            path: './test/fixtures/complete-theme',
           },
           context,
         ),
