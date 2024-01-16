@@ -1,4 +1,4 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>semantic-release/.github"]
+  "extends": ["github>semantic-release/.github:renovate-config"]
 }
