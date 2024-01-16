@@ -48,7 +48,7 @@
     "@babel/preset-env": "7.23.8",
     "@types/fs-extra": "11.0.4",
     "@types/jest": "29.5.11",
-    "@types/node": "20.10.6",
+    "@types/node": "20.11.4",
     "@types/semantic-release__error": "3.0.3",
     "@types/signale": "1.4.7",
     "@types/sinon": "17.0.3",
