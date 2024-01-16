@@ -24,7 +24,9 @@ function remapGlobs(workDir: string, includePath: string): string {
  * @returns       Array of globs to include
  */
 export function getInclude(workDir: string, files?: string[]): string[] {
-  const include = [...new Set(files ?? getFileArray(workDir, '.distinclude'))];
+  const include = [
+    ...new Set(getFileArray(workDir, '.distinclude') ?? files ?? []),
+  ];
 
   return include.length !== 0 ? include : ['**/*'];
 }
@@ -40,7 +42,10 @@ export function getIgnore(workDir: string, files?: string[]): string[] {
   return [
     ...new Set([
       ...DEFAULT_EXCLUDES,
-      ...(files ?? getFileArray(workDir, '.distignore')),
+      ...(getFileArray(workDir, '.distexclude') ??
+        getFileArray(workDir, '.distignore') ??
+        files ??
+        []),
     ]),
   ]
     .filter(
