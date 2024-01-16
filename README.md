@@ -92,7 +92,7 @@ You can also use the `include` option which works in the same manner.
 #### Notes
 
  * Include and exclude options are not mutually exclusive so you can use both.
- * Plugin also looks for `.distinclude` and `.distexclude` files which take precedence over the options set in the plugin.
+ * Plugin also looks for `.distinclude` and `.distexclude` / `.distignore` files which take precedence over the options set in the plugin.
  * By default we exclude a lot of build artifacts and files which are not needed in the package. You can see the full list in [constants.ts](lib/constants.ts).
 
 ### Examples

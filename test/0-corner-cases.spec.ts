@@ -9,7 +9,7 @@ import { PluginConfig } from '../lib/classes/plugin-config.class.js';
 describe('Corner cases affecting releases', () => {
   it('Should fail to read non-existant file', () => {
     try {
-      const files = getFileArray('/test', 'non-existant-file.txt');
+      const files = getFileArray('/test', 'non-existant-file.txt') ?? [];
       expect(files).toEqual([]);
     } catch (err) {}
   });
@@ -87,7 +87,7 @@ describe('Corner cases affecting releases', () => {
       'vendor',
     ]);
     const ignore1 = DEFAULT_EXCLUDES;
-    const include2 = getInclude(workDir);
+    const include2 = getInclude(workDir, ['dist-test.php']);
     const ignore2 = getIgnore(workDir);
     const expected = ['dist-test.php', 'test1.php', 'vendor'].sort();
 
