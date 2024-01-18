@@ -52,17 +52,18 @@ Plugin uses no environment variables, but has a lot of configuration options
 
 ### Options
 
-| Options           | Description                                                | Default                                                               |
-|-------------------|------------------------------------------------------------|-----------------------------------------------------------------------|
-| `type`            | Type of the package to create. Can be `plugin` or `theme`  | None. **You must set this explicitly**                                |
-| `slug`            | Package slug.                                              | None. **You must set this explicitly**                                |
-| `withAssets`      | Does the package have assets (screenshots, banners, logo)  | `false`                                                               |
-| `withReadme`      | Does the package have a readme.txt file                    | `false`                                                               |
-| `withVersionFile` | Do we need to create a file with the next release version  | `true`                                                                |
-| `releasePath`     | Base path for all of the release files                     | `/tmp/wp-release`                                                     |
-| `versionFiles`    | Array of additional files containing the package version.  | `[]`                                                                  |
-| `include`         | Files to include in the package zip file.                  | `**/*`                                                                |
-| `exclude`         | Files to exclude from the package zip file                 | List of files and folders defined in [constants.ts](lib/constants.ts) |
+| Options           | Description                                               | Default                                                               |
+|-------------------|-----------------------------------------------------------|-----------------------------------------------------------------------|
+| `type`            | Type of the package to create. Can be `plugin` or `theme` | None. **You must set this explicitly**                                |
+| `slug`            | Package slug.                                             | None. **You must set this explicitly**                                |
+| `path`            | The path of root folder that contains plugin or theme     | `./`                                                                  |
+| `withAssets`      | Does the package have assets (screenshots, banners, logo) | `false`                                                               |
+| `withReadme`      | Does the package have a readme.txt file                   | `false`                                                               |
+| `withVersionFile` | Do we need to create a file with the next release version | `true`                                                                |
+| `releasePath`     | Base path for all of the release files                    | `/tmp/wp-release`                                                     |
+| `versionFiles`    | Array of additional files containing the package version. | `[]`                                                                  |
+| `include`         | Files to include in the package zip file.                 | `**/*`                                                                |
+| `exclude`         | Files to exclude from the package zip file                | List of files and folders defined in [constants.ts](lib/constants.ts) |
 
 ### Versioning
 
