@@ -11,6 +11,7 @@ on:
     types:
       - opened
       - synchronize
+  merge_group:
 
 permissions:
   contents: read # to fetch code (actions/checkout)
