@@ -33,7 +33,12 @@ export async function prepare(
   }
 
   if (config.withReadme) {
-    files.push('.wordpress-org/readme.txt');
+    const readmePath = ['.wordpress-org/readme.txt', 'readme.txt'].reduce(
+      (acc, p) => (fs.existsSync(path.join(workDir, p)) ? p : acc),
+      undefined,
+    );
+
+    readmePath && files.push(readmePath);
   }
 
   errors.push(
