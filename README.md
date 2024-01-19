@@ -74,16 +74,17 @@ If you have other variables which need to have the version replaced, you can add
 
 If you need any further processing of the package files, next release version will be output to `/tmp/wp-release/VERSION` file, if the `withVersionFile` option is set to `true`.
 
-> **Warning**
+> [!IMPORTANT]
 > Version in your plugin / theme must be set to 0.0.0 for this plugin to work
 
 ### Assets
 If your package is on [wp.org](https://wordpress.org) repository, you might have assets (screenshots, banners, logos) which you want to include in the assets file. Plugin respects the Codex, and expects those to be in ``.wordpress-org/assets`` folder. Main theme screenshot should be named ``screenshot`` and should be there as well.
 
 ### Readme
-readme.txt is a special Markdown file needed for packages on [wp.org](https://wordpress.org) to work. It needs to be in the `.wordpress-org` folder. Plugin will automatically replace the version in the file if the `withReadme` option is set to `true`.
+readme.txt is a special Markdown file needed for packages on [wp.org](https://wordpress.org) to work. It can be in the `.wordpress-org` folder, or in the repository root.  
+Plugin will automatically replace the version in the file if the `withReadme` option is set to `true`.
 
-> ** Warning**
+> [!WARNING]
 > Version in your readme.txt must also be set to 0.0.0 for this plugin to work
 
 ### Include / Exclude

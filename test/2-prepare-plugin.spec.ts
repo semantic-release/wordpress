@@ -108,6 +108,28 @@ describe('Package preparation - cusom work directory', () => {
     expect(readme).toMatch(/Stable tag: 1\.0\.0/);
   });
 
+  it('Should change the readme.txt version in the rootdir', async () => {
+    await prepare(
+      {
+        type: 'plugin',
+        slug: 'root-readme',
+        path: './test/fixtures/root-readme',
+        copyFiles: true,
+        withReadme: true,
+        releasePath,
+        workDir,
+      },
+      contexts.prepareContext,
+    );
+
+    const readme = fs.readFileSync(
+      path.join(getWorkDir(workDir), 'root-readme/readme.txt'),
+      'utf8',
+    );
+
+    expect(readme).toMatch(/Stable tag: 1\.0\.0/);
+  });
+
   it('Should work with empty assets', async () => {
     await prepare(
       {
