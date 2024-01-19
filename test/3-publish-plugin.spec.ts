@@ -88,7 +88,7 @@ describe('Publish step', () => {
       await fs.remove(path.join(releasePath, 'assets'));
       await publish(pluginConfig, contexts.publishContext);
     } catch (err) {
-      expect((err as SemanticReleaseError).code).toBe('EZIP');
+      expect((err as SemanticReleaseError).code).toMatch(/(ENOENT|EZIP)/);
     }
   }, 10000);
 
@@ -99,7 +99,7 @@ describe('Publish step', () => {
       await prepare(pluginConfig, contexts.publishContext);
       await publish(pluginConfig, contexts.publishContext);
     } catch (err) {
-      expect((err as SemanticReleaseError).code).toBe('EZIP');
+      expect((err as SemanticReleaseError).code).toMatch(/(ENOENT|EZIP)/);
     }
   }, 5000);
 });

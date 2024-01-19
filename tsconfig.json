@@ -13,6 +13,7 @@
       "node",
       "jest",
     ],
+    "useUnknownInCatchVariables": false,
     "allowJs": true,
     "removeComments": false,
     "noLib": false,
