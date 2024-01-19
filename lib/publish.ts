@@ -11,45 +11,37 @@ export async function publish(
   context: PublishContext,
 ): Promise<void> {
   config = await transformAndValidate(PluginConfig, config);
-
   const releaseDir = path.resolve(config.releasePath);
   const assetDir = path.resolve(releaseDir, 'assets');
   const versionFile = path.resolve(releaseDir, 'VERSION');
   const zipCommand = process.env.ZIP_COMMAND ?? 'zip';
 
-  const packageResult = await execa(
-    zipCommand,
-    ['-qr', path.join(releaseDir, `package.zip`), config.slug],
-    {
-      reject: false,
-      cwd: config.releasePath,
-      timeout: 30 * 1000,
-    },
-  );
-
-  if (
-    ('exitCode' in packageResult && packageResult.exitCode !== 0) ||
-    ('code' in packageResult && packageResult.code !== 0)
-  ) {
-    throw getError('EZIP', packageResult.stderr);
-  }
-
-  if (config.withAssets) {
-    const zipResult = await execa(
+  try {
+    const packageResult = await execa(
       zipCommand,
-      ['-qjr', path.join(releaseDir, `assets.zip`), assetDir],
+      ['-qr', path.join(releaseDir, `package.zip`), config.slug],
       {
-        reject: false,
-        cwd: assetDir,
+        cwd: config.releasePath,
         timeout: 30 * 1000,
       },
     );
-    if (
-      ('exitCode' in zipResult && zipResult.exitCode !== 0) ||
-      ('code' in zipResult && zipResult.code !== 0)
-    ) {
-      throw getError('EZIP', zipResult.stderr);
+
+    const zipResult = config.withAssets
+      ? await execa(
+          zipCommand,
+          ['-qjr', path.join(releaseDir, `assets.zip`), assetDir],
+          {
+            cwd: assetDir,
+            timeout: 30 * 1000,
+          },
+        )
+      : { exitCode: 0, stderr: '' };
+
+    if (packageResult.exitCode !== 0 || zipResult.exitCode !== 0) {
+      throw getError('EZIP', packageResult.stderr || zipResult.stderr);
     }
+  } catch (err) {
+    throw getError(err.code ?? 'EZIP', err.message);
   }
 
   if (config.withVersionFile) {

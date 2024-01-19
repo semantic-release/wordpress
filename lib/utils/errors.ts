@@ -207,6 +207,13 @@ export function EZIP(zipError: string) {
   };
 }
 
+export function ENOENT(zipError: string) {
+  return {
+    message: `File not found.`,
+    details: `The file was not found: ${zipError}.`,
+  };
+}
+
 export function ETHEMEFILENOTFOUND(file: string) {
   return {
     message: `Your theme must contain these files: ${file}`,
