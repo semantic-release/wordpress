@@ -14,7 +14,7 @@ export async function replaceVersions(
   try {
     const results = await rif.replaceInFile({
       files: files.map((file) => path.join(workDir, file)),
-      from: currentVersion,
+      from: new RegExp(currentVersion, 'g'),
       to: nextVersion,
     });
 

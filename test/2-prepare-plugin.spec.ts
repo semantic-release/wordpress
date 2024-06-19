@@ -40,6 +40,11 @@ describe('Package preparation - cusom work directory', () => {
       },
       contexts.prepareContext,
     );
+    expect(
+      fs
+        .readFileSync(path.join(releasePath, 'plugin1', 'plugin1.php'), 'utf8')
+        .toString(),
+    ).not.toMatch(/0\.0\.0/);
   });
 
   it('Should fail on invalid plugin version', async () => {
