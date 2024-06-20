@@ -44,8 +44,8 @@
     "replace-in-file": "^7.0.1"
   },
   "devDependencies": {
-    "@babel/core": "7.23.7",
-    "@babel/preset-env": "7.23.8",
+    "@babel/core": "7.24.7",
+    "@babel/preset-env": "7.24.7",
     "@types/fs-extra": "11.0.4",
     "@types/jest": "29.5.11",
     "@types/node": "20.12.7",
