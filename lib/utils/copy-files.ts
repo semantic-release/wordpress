@@ -28,7 +28,11 @@ export function getInclude(workDir: string, files?: string[]): string[] {
     ...new Set(getFileArray(workDir, '.distinclude') ?? files ?? []),
   ];
 
-  return include.length !== 0 ? include : ['**/*'];
+  return include.length > 0
+    ? include
+        .filter((p) => p.includes('*') || fs.existsSync(path.join(workDir, p)))
+        .map((p) => remapGlobs(workDir, p))
+    : ['**'];
 }
 
 /**
@@ -51,8 +55,7 @@ export function getIgnore(workDir: string, files?: string[]): string[] {
     .filter(
       (ignorePath) =>
         ignorePath.includes('*') ||
-        (!ignorePath.includes('*') &&
-          fs.existsSync(path.join(workDir, ignorePath))),
+        fs.existsSync(path.join(workDir, ignorePath)),
     )
     .map((ignorePath) => remapGlobs(workDir, ignorePath));
 }
@@ -67,7 +70,8 @@ export async function copyFiles(
   const files = await glob(getInclude(workDir, config.include), {
     cwd: workDir,
     ignore: getIgnore(workDir, config.exclude),
-    // maxDepth: 1,
+    nodir: true,
+    mark: true,
   });
 
   await fs.mkdir(releasePath, { recursive: true });

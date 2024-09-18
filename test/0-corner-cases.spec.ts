@@ -89,16 +89,51 @@ describe('Corner cases affecting releases', () => {
     const ignore1 = DEFAULT_EXCLUDES;
     const include2 = getInclude(workDir, ['dist-test.php']);
     const ignore2 = getIgnore(workDir);
-    const expected = ['dist-test.php', 'test1.php', 'vendor'].sort();
+    const expected = [
+      'dist-test.php',
+      'test1.php',
+      'vendor/composer.php',
+    ].sort();
 
-    expect(include1.sort()).toEqual(['dist-test.php', 'test1.php', 'vendor']);
+    expect(include1.sort()).toEqual([
+      'dist-test.php',
+      'test1.php',
+      'vendor/**',
+    ]);
     expect(
       (
-        await glob(include1, { cwd: workDir, ignore: ignore1, maxDepth: 1 })
+        await glob(include1, {
+          cwd: workDir,
+          ignore: ignore1,
+          nodir: true,
+          mark: true,
+        })
       ).sort(),
     ).toEqual(expected);
     expect(
-      (await glob(include2, { cwd: workDir, ignore: ignore2 })).sort(),
+      (
+        await glob(include2, {
+          cwd: workDir,
+          ignore: ignore2,
+          nodir: true,
+          mark: true,
+        })
+      ).sort(),
     ).toEqual(['dist-test.php']);
+  });
+
+  it('Should glob properly with nesting', async () => {
+    const workDir = path.resolve('./test/fixtures/nested-exclude');
+
+    expect(
+      (
+        await glob(getInclude(workDir), {
+          cwd: workDir,
+          ignore: getIgnore(workDir),
+          nodir: true,
+          mark: true,
+        })
+      ).sort(),
+    ).toEqual(['assets/need-this.js', 'file.php']);
   });
 });

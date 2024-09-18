@@ -217,9 +217,10 @@ describe('Package preparation - default work directory', () => {
 
     const assets = fs.readdirSync(path.join(releasePath, 'assets'));
 
-    expect(assets).toHaveLength(4);
+    expect(assets).toHaveLength(5);
     expect(assets.sort()).toStrictEqual(
       [
+        'blueprints',
         'banner-low.jpg',
         'banner-high.jpg',
         'screenshot-1.jpg',

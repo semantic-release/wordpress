@@ -1,0 +1,65 @@
+{
+  "landingPage": "/wp-admin/index.php",
+  "preferredVersions": {
+    "php": "8.0",
+    "wp": "6.4"
+  },
+  "phpExtensionBundles": ["kitchen-sink"],
+  "steps": [
+    {
+      "step": "login",
+      "username": "admin",
+      "password": "password"
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "WPLANG": "sr_RS",
+        "wcsrb_settings_general": "a:3:{s:22:\"enabled_customer_types\";s:4:\"both\";s:22:\"remove_unneeded_fields\";s:3:\"yes\";s:19:\"fix_currency_symbol\";s:3:\"yes\";}",
+        "woocommerce_store_name": "Oblak Solutions DOO",
+        "woocommerce_store_address": "Pozeska",
+        "woocommerce_store_city": "Beograd",
+        "woocommerce_store_postcode": "11000",
+        "woocommerce_default_country": "RS:RS00",
+        "woocommerce_store_bank_accounts": {
+          "acct": ["160-428634-06"]
+        },
+        "woocommerce_currency": "RSD",
+        "woocommerce_currency_pos": "right_space",
+        "woocommerce_wcsrb_payment_slip_settings": {
+          "enabled": "yes",
+          "title": "Op\u0161ta uplatnica",
+          "description": "Platite narud\u017ebinu op\u0161tom uplatnicom",
+          "basic": "",
+          "style": "modern",
+          "bank_account": "160-428634-06",
+          "payment_code": "auto",
+          "payment_model": "mod97",
+          "payment_reference": "%mod97%-%order_id%-%year%",
+          "payment_purpose": "Pla\u0107anje narud\u017ebine",
+          "qrcode": "",
+          "qrcode_shown": "yes",
+          "qrcode_color": "#000000",
+          "qrcode_corner_color": "#0e77c0",
+          "qrcode_image": "no",
+          "advanced": "",
+          "debug": "no"
+        }
+      }
+    },
+    {
+      "step": "installPlugin",
+      "pluginZipFile": {
+        "resource": "wordpress.org/plugins",
+        "slug": "woocommerce"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php\ninclude 'wordpress/wp-load.php';\ndelete_transient('_wc_activation_redirect');"
+    }
+  ]
+}

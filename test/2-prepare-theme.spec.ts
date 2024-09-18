@@ -41,6 +41,10 @@ beforeEach(() => {
 afterEach(async () => {
   fs.rmSync('/tmp/workDir', { recursive: true, force: true });
   fs.rmSync('/tmp/wp-release', { recursive: true, force: true });
+  fs.rmSync('./test/fixtures/complete-theme-copy', {
+    recursive: true,
+    force: true,
+  });
 });
 
 it('Should fail on a badly versioned theme', async () => {
@@ -131,9 +135,4 @@ it('Should fully prepare a theme for release', async () => {
   );
   expect(versions).toMatch(/1\.0\.0/);
   expect(versions).toMatch(/3\.2\.111/);
-
-  await fs.rm('./test/fixtures/complete-theme-copy', {
-    recursive: true,
-    force: true,
-  });
 });

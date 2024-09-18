@@ -11,7 +11,12 @@ export async function copyAssets(
   const basePath = path.resolve(path.join(workDir, '.wordpress-org', 'assets'));
 
   const assets = await glob(
-    ['screenshot*', 'banner-*'].map((g) => `${g}.{jpg,png,gif,jpeg}`),
+    [
+      ...['icon-*', 'screenshot*', 'banner-*'].map(
+        (g) => `${g}.{jpg,png,gif,jpeg}`,
+      ),
+      'blueprints/**.json',
+    ],
     {
       cwd: basePath,
     },
