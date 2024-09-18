@@ -10,6 +10,13 @@ import { replaceVersions } from './utils/replace-versions.js';
 import { copyFiles } from './utils/copy-files.js';
 import { copyAssets } from './utils/copy-assets.js';
 
+function getReadmePath(workDir: string): string | undefined {
+  return ['.wordpress-org/readme.txt', 'readme.txt'].reduce(
+    (acc, p) => (fs.existsSync(path.join(workDir, p)) ? p : acc),
+    undefined,
+  );
+}
+
 export async function prepare(
   config: PluginConfig,
   context: PrepareContext,
@@ -32,14 +39,9 @@ export async function prepare(
     await fs.copy(path.resolve(config.path), workDir);
   }
 
-  if (config.withReadme) {
-    const readmePath = ['.wordpress-org/readme.txt', 'readme.txt'].reduce(
-      (acc, p) => (fs.existsSync(path.join(workDir, p)) ? p : acc),
-      undefined,
-    );
+  const readmePath = config.withReadme ? getReadmePath(workDir) : undefined;
 
-    readmePath && files.push(readmePath);
-  }
+  readmePath && files.push(readmePath);
 
   errors.push(
     ...(await replaceVersions(workDir, files, context.nextRelease.version)),
@@ -49,7 +51,7 @@ export async function prepare(
     throw new AggregateError(errors);
   }
 
-  errors.push(...(await copyFiles(config, workDir)));
+  errors.push(...(await copyFiles(config, workDir, readmePath)));
 
   if (errors.length) {
     throw new AggregateError(errors);

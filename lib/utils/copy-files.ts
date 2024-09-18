@@ -63,6 +63,7 @@ export function getIgnore(workDir: string, files?: string[]): string[] {
 export async function copyFiles(
   config: PluginConfig,
   workDir: string,
+  readmePath?: string,
 ): Promise<SemanticReleaseError[]> {
   const errors: SemanticReleaseError[] = [];
   const releasePath = path.resolve(config.releasePath, config.slug);
@@ -88,6 +89,21 @@ export async function copyFiles(
       );
     } catch (err) {
       errors.push(getError('EFILECOPY', file));
+    }
+  }
+
+  if (config.withReadme && readmePath) {
+    try {
+      fs.cpSync(
+        path.resolve(path.join(workDir, readmePath)),
+        path.resolve(path.join(releasePath, 'readme.txt')),
+        {
+          preserveTimestamps: true,
+          recursive: true,
+        },
+      );
+    } catch (err) {
+      errors.push(getError('EFILECOPY', readmePath));
     }
   }
 

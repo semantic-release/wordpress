@@ -103,10 +103,7 @@ describe('Package preparation - cusom work directory', () => {
     );
 
     const readme = fs.readFileSync(
-      path.join(
-        getWorkDir(workDir),
-        'plugin-with-readme/.wordpress-org/readme.txt',
-      ),
+      path.join(releasePath, 'plugin-with-readme/readme.txt'),
       'utf8',
     );
 
