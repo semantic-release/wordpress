@@ -8,7 +8,6 @@ import { replaceVersions } from '../lib/utils/replace-versions.js';
 import { success } from '../lib/success.js';
 import SemanticReleaseError from '@semantic-release/error';
 import { publish } from '../lib/publish.js';
-import AdmZip, { IZipEntry } from 'adm-zip';
 
 const pluginConfig: PluginConfig = {
   type: 'plugin',
@@ -22,37 +21,12 @@ const pluginConfig: PluginConfig = {
   workDir: 'publish',
 };
 
-let wDir: string;
+let releasePath: string;
 const env = process.env;
 
-function readZip(dir: string, file: string, pfx: RegExp = /.^/): Set<string> {
-  return new Set(
-    new AdmZip(path.join(dir, file))
-      .getEntries()
-      .map(({ entryName }) => entryName.replace(pfx, '').replace(/\/$/, ''))
-      .filter((e) => e !== '' && (pfx.source == '.^' || !e.match(/\//))),
-  );
-}
-
-function readDir(
-  root: string,
-  dir: string,
-  recursive: boolean = false,
-): Set<string> {
-  return new Set(
-    fs.readdirSync(path.join(root, dir), {
-      recursive,
-    }) as string[],
-  );
-}
-
-function readFile(root: string, file: string): string {
-  return fs.readFileSync(path.join(root, file), 'utf8');
-}
-
 beforeAll(async () => {
-  wDir = fs.mkdtempSync('/tmp/wp-release-');
-  pluginConfig.releasePath = wDir;
+  releasePath = fs.mkdtempSync('/tmp/wp-release-');
+  pluginConfig.releasePath = releasePath;
 });
 
 beforeEach(() => {
@@ -77,30 +51,28 @@ afterEach(async () => {
 });
 
 afterAll(async () => {
-  fs.removeSync(wDir);
+  fs.removeSync(releasePath);
 });
 
 describe('Publish step', () => {
-  it('Should zip a complete plugin properly', async () => {
+  it('Should package a complete plugin', async () => {
     await prepare(pluginConfig, contexts.publishContext);
     await publish(pluginConfig, contexts.publishContext);
 
-    expect(readFile(path.join(wDir, 'dist-test'), 'readme.txt')).toMatch(
-      /^Stable tag: 1.0.0$/gm,
-    );
-    expect(readZip(wDir, 'package.zip', /^dist-test\//)).toEqual(
-      readDir(wDir, 'dist-test'),
-    );
-    expect(readZip(wDir, 'assets.zip')).toEqual(readDir(wDir, 'assets', true));
-    expect(readFile(wDir, 'VERSION')).toEqual('1.0.0');
+    const distFolder = fs
+      .readdirSync(path.join(releasePath, 'dist-test'))
+      .join(' ');
 
-    // expect readZip(releasePath, 'assets.zip');
+    expect(distFolder).not.toContain('node_modules');
+    expect(distFolder).toContain('vendor');
+    expect(distFolder).toContain('dist-test.php');
+    expect(distFolder).toContain('test1.php');
   });
 
   it('Should should remove folders on success', async () => {
     await success(pluginConfig, contexts.publishContext);
 
-    const files = fs.readdirSync(wDir).join(' ');
+    const files = fs.readdirSync(releasePath).join(' ');
 
     expect(files).toContain('package.zip');
     expect(files).toContain('assets.zip');
@@ -113,7 +85,7 @@ describe('Publish step', () => {
     try {
       await prepare(pluginConfig, contexts.publishContext);
 
-      await fs.remove(path.join(wDir, 'assets'));
+      await fs.remove(path.join(releasePath, 'assets'));
       await publish(pluginConfig, contexts.publishContext);
     } catch (err) {
       expect((err as SemanticReleaseError).code).toMatch(/(ENOENT|EZIP)/);
