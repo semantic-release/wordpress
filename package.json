@@ -27,7 +27,7 @@
   },
   "type": "module",
   "engines": {
-    "node": ">= 18"
+    "node": ">=20.8.1"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -68,7 +68,7 @@
     "typescript": "5.3.3"
   },
   "peerDependencies": {
-    "semantic-release": "^21.0.7 || ^22.0.0 || ^23.0.0 || ^24.0.0"
+    "semantic-release": ">=20.1.0"
   },
   "publishConfig": {
     "access": "public",
