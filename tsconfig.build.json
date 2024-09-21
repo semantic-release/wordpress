@@ -1,8 +1,17 @@
 {
-    "extends": "./tsconfig",
-    "exclude": ["node_modules", "dist", "**/*spec.ts", "./.eslintrc.cjs", "test/get-context.ts"],
-    "compilerOptions": {
-      "sourceMap": true
-    },
-    "rootDir": "lib",
-  }
+  "extends": "./tsconfig",
+  "include": [
+    "lib/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*spec.ts",
+    "./.eslintrc.cjs",
+    "test/get-context.ts"
+  ],
+  "compilerOptions": {
+    "sourceMap": true
+  },
+  "rootDir": "lib/",
+}

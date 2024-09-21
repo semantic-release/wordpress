@@ -25,7 +25,11 @@
     "strictPropertyInitialization": false,
     "strictNullChecks": false,
     "sourceMap": true,
-    "outDir": "dist",
+    "outDir": "dist/",
   },
-  "include": ["lib/**/*", "test/**/*.ts", ".eslintrc.cjs"],
+  "include": [
+    "lib/**/*",
+    "test/**/*.ts",
+    ".eslintrc.cjs"
+  ],
 }
