@@ -8,7 +8,7 @@ import { replaceVersions } from '../lib/utils/replace-versions.js';
 import { success } from '../lib/success.js';
 import SemanticReleaseError from '@semantic-release/error';
 import { publish } from '../lib/publish.js';
-import AdmZip, { IZipEntry } from 'adm-zip';
+import { readFile, readDir, readZip } from './utils.js';
 
 const pluginConfig: PluginConfig = {
   type: 'plugin',
@@ -24,31 +24,6 @@ const pluginConfig: PluginConfig = {
 
 let wDir: string;
 const env = process.env;
-
-function readZip(dir: string, file: string, pfx: RegExp = /.^/): Set<string> {
-  return new Set(
-    new AdmZip(path.join(dir, file))
-      .getEntries()
-      .map(({ entryName }) => entryName.replace(pfx, '').replace(/\/$/, ''))
-      .filter((e) => e !== '' && (pfx.source == '.^' || !e.match(/\//))),
-  );
-}
-
-function readDir(
-  root: string,
-  dir: string,
-  recursive: boolean = false,
-): Set<string> {
-  return new Set(
-    fs.readdirSync(path.join(root, dir), {
-      recursive,
-    }) as string[],
-  );
-}
-
-function readFile(root: string, file: string): string {
-  return fs.readFileSync(path.join(root, file), 'utf8');
-}
 
 beforeAll(async () => {
   wDir = fs.mkdtempSync('/tmp/wp-release-');
@@ -85,28 +60,22 @@ describe('Publish step', () => {
     await prepare(pluginConfig, contexts.publishContext);
     await publish(pluginConfig, contexts.publishContext);
 
-    expect(readFile(path.join(wDir, 'dist-test'), 'readme.txt')).toMatch(
+    expect(readFile(wDir, 'dist-test', 'readme.txt')).toMatch(
       /^Stable tag: 1.0.0$/gm,
     );
     expect(readZip(wDir, 'package.zip', /^dist-test\//)).toEqual(
-      readDir(wDir, 'dist-test'),
+      readDir(false, wDir, 'dist-test'),
     );
-    expect(readZip(wDir, 'assets.zip')).toEqual(readDir(wDir, 'assets', true));
+    expect(readZip(wDir, 'assets.zip')).toEqual(readDir(true, wDir, 'assets'));
     expect(readFile(wDir, 'VERSION')).toEqual('1.0.0');
-
-    // expect readZip(releasePath, 'assets.zip');
   });
 
   it('Should should remove folders on success', async () => {
     await success(pluginConfig, contexts.publishContext);
 
-    const files = fs.readdirSync(wDir).join(' ');
-
-    expect(files).toContain('package.zip');
-    expect(files).toContain('assets.zip');
-    expect(files).toContain('VERSION');
-    expect(files).not.toContain('dist-test');
-    expect(files).not.toContain('assets ');
+    expect(readDir(false, wDir)).toEqual(
+      new Set(['package.zip', 'assets.zip', 'VERSION']),
+    );
   });
 
   it('Should fail when no assets exist', async () => {
