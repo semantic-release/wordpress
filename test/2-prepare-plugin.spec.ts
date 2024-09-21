@@ -212,17 +212,22 @@ describe('Package preparation - default work directory', () => {
       contexts.prepareContext,
     );
 
-    const assets = fs.readdirSync(path.join(releasePath, 'assets'));
+    const assets = new Set(
+      fs.readdirSync(path.join(releasePath, 'assets'), {
+        recursive: true,
+      }) as string[],
+    );
 
-    expect(assets).toHaveLength(5);
-    expect(assets.sort()).toStrictEqual(
-      [
+    expect([...assets]).toHaveLength(6);
+    expect(assets).toEqual(
+      new Set([
         'blueprints',
+        'blueprints/blueprint.json',
         'banner-low.jpg',
         'banner-high.jpg',
         'screenshot-1.jpg',
         'screenshot-2.jpg',
-      ].sort(),
+      ]),
     );
   });
 });
