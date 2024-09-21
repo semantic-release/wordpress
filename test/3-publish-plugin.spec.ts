@@ -56,7 +56,7 @@ afterAll(async () => {
 });
 
 describe('Publish step', () => {
-  it('Should zip a complete plugin properly', async () => {
+  it('Should package a complete plugin', async () => {
     await prepare(pluginConfig, contexts.publishContext);
     await publish(pluginConfig, contexts.publishContext);
 
