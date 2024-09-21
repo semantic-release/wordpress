@@ -22,7 +22,8 @@
     "test:setup": "cd ./test/fixtures/dist-test && npm install",
     "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest -i --forceExit",
     "test:watch": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest --watch -i  --forceExit",
-    "test:cov": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest --coverage -i --forceExit"
+    "test:cov": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest --coverage -i --forceExit",
+    "semantic-release": "semantic-release"
   },
   "type": "module",
   "engines": {
