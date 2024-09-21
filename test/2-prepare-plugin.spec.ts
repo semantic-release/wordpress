@@ -4,6 +4,7 @@ import fs from 'fs-extra';
 import { prepare } from '../lib/prepare.js';
 import * as contexts from './get-context.js';
 import { replaceVersions } from '../lib/utils/replace-versions.js';
+import { readDir, readFile } from './utils.js';
 
 function getWorkDir(suffix: string): string {
   const files = fs.readdirSync(os.tmpdir());
@@ -40,11 +41,9 @@ describe('Package preparation - cusom work directory', () => {
       },
       contexts.prepareContext,
     );
-    expect(
-      fs
-        .readFileSync(path.join(releasePath, 'plugin1', 'plugin1.php'), 'utf8')
-        .toString(),
-    ).not.toMatch(/0\.0\.0/);
+    expect(readFile(releasePath, 'plugin1', 'plugin1.php')).not.toMatch(
+      /0\.0\.0/,
+    );
   });
 
   it('Should fail on invalid plugin version', async () => {
@@ -79,9 +78,10 @@ describe('Package preparation - cusom work directory', () => {
       contexts.prepareContext,
     );
 
-    const versions = fs.readFileSync(
-      path.join(getWorkDir(workDir), 'plugin1/extra-versions.php'),
-      'utf8',
+    const versions = readFile(
+      getWorkDir(workDir),
+      'plugin1',
+      'extra-versions.php',
     );
 
     expect(versions).toMatch(/1\.0\.0/);
@@ -102,12 +102,9 @@ describe('Package preparation - cusom work directory', () => {
       contexts.prepareContext,
     );
 
-    const readme = fs.readFileSync(
-      path.join(releasePath, 'plugin-with-readme/readme.txt'),
-      'utf8',
+    expect(readFile(releasePath, 'plugin-with-readme', 'readme.txt')).toMatch(
+      /Stable tag: 1\.0\.0/,
     );
-
-    expect(readme).toMatch(/Stable tag: 1\.0\.0/);
   });
 
   it('Should change the readme.txt version in the rootdir', async () => {
@@ -124,12 +121,9 @@ describe('Package preparation - cusom work directory', () => {
       contexts.prepareContext,
     );
 
-    const readme = fs.readFileSync(
-      path.join(getWorkDir(workDir), 'root-readme/readme.txt'),
-      'utf8',
+    expect(readFile(getWorkDir(workDir), 'root-readme', 'readme.txt')).toMatch(
+      /Stable tag: 1\.0\.0/,
     );
-
-    expect(readme).toMatch(/Stable tag: 1\.0\.0/);
   });
 
   it('Should work with empty assets', async () => {
@@ -185,17 +179,10 @@ describe('Package preparation - default work directory', () => {
       contexts.prepareContext,
     );
 
-    const distFiles = fs.readdirSync(path.join(releasePath, 'dist-test'));
-    const vendorFiles = fs.readdirSync(
-      path.join(releasePath, 'dist-test', 'vendor'),
+    expect(readDir(true, releasePath, 'dist-test')).toStrictEqual(
+      new Set(['dist-test.php', 'test1.php', 'vendor', 'vendor/composer.php']),
     );
-    const versionExists = fs.existsSync(path.join(releasePath, 'VERSION'));
-
-    expect(distFiles).toHaveLength(3);
-    expect(distFiles).toStrictEqual(['dist-test.php', 'test1.php', 'vendor']);
-    expect(vendorFiles).toHaveLength(1);
-    expect(vendorFiles).toStrictEqual(['composer.php']);
-    expect(versionExists).toBe(false);
+    expect(fs.existsSync(path.join(releasePath, 'VERSION'))).toBe(false);
   });
 
   it('Should copy the assets files', async () => {
@@ -212,17 +199,15 @@ describe('Package preparation - default work directory', () => {
       contexts.prepareContext,
     );
 
-    const assets = fs.readdirSync(path.join(releasePath, 'assets'));
-
-    expect(assets).toHaveLength(5);
-    expect(assets.sort()).toStrictEqual(
-      [
+    expect(readDir(true, releasePath, 'assets')).toEqual(
+      new Set([
         'blueprints',
+        'blueprints/blueprint.json',
         'banner-low.jpg',
         'banner-high.jpg',
         'screenshot-1.jpg',
         'screenshot-2.jpg',
-      ].sort(),
+      ]),
     );
   });
 });

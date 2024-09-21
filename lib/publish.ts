@@ -29,7 +29,7 @@ export async function publish(
     const zipResult = config.withAssets
       ? await execa(
           zipCommand,
-          ['-qjr', path.join(releaseDir, `assets.zip`), assetDir],
+          ['-qr', path.join(releaseDir, `assets.zip`), '.'],
           {
             cwd: assetDir,
             timeout: 30 * 1000,

@@ -8,6 +8,7 @@ import { replaceVersions } from '../lib/utils/replace-versions.js';
 import { success } from '../lib/success.js';
 import SemanticReleaseError from '@semantic-release/error';
 import { publish } from '../lib/publish.js';
+import { readFile, readDir, readZip } from './utils.js';
 
 const pluginConfig: PluginConfig = {
   type: 'plugin',
@@ -21,12 +22,12 @@ const pluginConfig: PluginConfig = {
   workDir: 'publish',
 };
 
-let releasePath: string;
+let wDir: string;
 const env = process.env;
 
 beforeAll(async () => {
-  releasePath = fs.mkdtempSync('/tmp/wp-release-');
-  pluginConfig.releasePath = releasePath;
+  wDir = fs.mkdtempSync('/tmp/wp-release-');
+  pluginConfig.releasePath = wDir;
 });
 
 beforeEach(() => {
@@ -51,7 +52,7 @@ afterEach(async () => {
 });
 
 afterAll(async () => {
-  fs.removeSync(releasePath);
+  fs.removeSync(wDir);
 });
 
 describe('Publish step', () => {
@@ -59,33 +60,29 @@ describe('Publish step', () => {
     await prepare(pluginConfig, contexts.publishContext);
     await publish(pluginConfig, contexts.publishContext);
 
-    const distFolder = fs
-      .readdirSync(path.join(releasePath, 'dist-test'))
-      .join(' ');
-
-    expect(distFolder).not.toContain('node_modules');
-    expect(distFolder).toContain('vendor');
-    expect(distFolder).toContain('dist-test.php');
-    expect(distFolder).toContain('test1.php');
+    expect(readFile(wDir, 'dist-test', 'readme.txt')).toMatch(
+      /^Stable tag: 1.0.0$/gm,
+    );
+    expect(readZip(wDir, 'package.zip', /^dist-test\//)).toEqual(
+      readDir(false, wDir, 'dist-test'),
+    );
+    expect(readZip(wDir, 'assets.zip')).toEqual(readDir(true, wDir, 'assets'));
+    expect(readFile(wDir, 'VERSION')).toEqual('1.0.0');
   });
 
   it('Should should remove folders on success', async () => {
     await success(pluginConfig, contexts.publishContext);
 
-    const files = fs.readdirSync(releasePath).join(' ');
-
-    expect(files).toContain('package.zip');
-    expect(files).toContain('assets.zip');
-    expect(files).toContain('VERSION');
-    expect(files).not.toContain('dist-test');
-    expect(files).not.toContain('assets ');
+    expect(readDir(false, wDir)).toEqual(
+      new Set(['package.zip', 'assets.zip', 'VERSION']),
+    );
   });
 
   it('Should fail when no assets exist', async () => {
     try {
       await prepare(pluginConfig, contexts.publishContext);
 
-      await fs.remove(path.join(releasePath, 'assets'));
+      await fs.remove(path.join(wDir, 'assets'));
       await publish(pluginConfig, contexts.publishContext);
     } catch (err) {
       expect((err as SemanticReleaseError).code).toMatch(/(ENOENT|EZIP)/);
