@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  ValidateIf,
 } from 'class-validator';
 
 export class PluginConfig {
@@ -29,6 +30,14 @@ export class PluginConfig {
   @IsBoolean()
   @IsOptional()
   withReadme? = false;
+
+  /**
+   * Are we generating a changelog?
+   */
+  @IsBoolean()
+  @IsOptional()
+  @ValidateIf((o: PluginConfig) => o?.withReadme === true)
+  withChangelog? = false;
 
   /**
    * Do we output the version in a file?

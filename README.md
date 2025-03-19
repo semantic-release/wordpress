@@ -33,6 +33,7 @@ The plugin can be configured in the [**semantic-release** configuration file](ht
       "slug" : "my-plugin",
       "withAssets": true,
       "withReadme": true,
+      "withChangelog": true,
       "withVersionFile": true,
     }]
   ]
@@ -43,6 +44,7 @@ With this example, for each release, the plugin will:
   * Verify that the plugin is valid
   * Create a zip file for the plugin (/tmp/wp-release/my-plugin.zip)
   * Create a zip file for the assets (/tmp/wp-release/assets.zip)
+  * Write the release notes to the readme file (/tmp/wp-release/readme.txt)
   * Copy the readme.txt file (/tmp/wp-release/readme.txt)
   * Create a version file (/tmp/wp-release/version.txt)
 
@@ -59,6 +61,7 @@ Plugin uses no environment variables, but has a lot of configuration options
 | `path`            | The path of root folder that contains plugin or theme     | `./`                                                                  |
 | `withAssets`      | Does the package have assets (screenshots, banners, logo) | `false`                                                               |
 | `withReadme`      | Does the package have a readme.txt file                   | `false`                                                               |
+| `withChangelog`   | Are we writing the release notes to the readme file       | `false`                                                               |
 | `withVersionFile` | Do we need to create a file with the next release version | `true`                                                                |
 | `releasePath`     | Base path for all of the release files                    | `/tmp/wp-release`                                                     |
 | `versionFiles`    | Array of additional files containing the package version. | `[]`                                                                  |

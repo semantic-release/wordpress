@@ -107,6 +107,26 @@ describe('Package preparation - cusom work directory', () => {
     );
   });
 
+  it('Should populate the changelog', async () => {
+    await prepare(
+      {
+        type: 'plugin',
+        slug: 'plugin-with-readme',
+        path: './test/fixtures/plugin-with-readme',
+        copyFiles: true,
+        withReadme: true,
+        withChangelog: true,
+        releasePath,
+        workDir,
+      },
+      contexts.prepareContext,
+    );
+
+    expect(readFile(releasePath, 'plugin-with-readme', 'readme.txt')).toMatch(
+      /3.3.0-alpha.1/,
+    );
+  });
+
   it('Should change the readme.txt version in the rootdir', async () => {
     await prepare(
       {

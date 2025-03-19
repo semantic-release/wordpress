@@ -9,6 +9,7 @@ import { PrepareContext } from 'semantic-release';
 import { replaceVersions } from './utils/replace-versions.js';
 import { copyFiles } from './utils/copy-files.js';
 import { copyAssets } from './utils/copy-assets.js';
+import { prepareChangelog } from './utils/prepare-changelog.js';
 
 function getReadmePath(workDir: string): string | undefined {
   return ['.wordpress-org/readme.txt', 'readme.txt'].reduce(
@@ -40,6 +41,15 @@ export async function prepare(
   }
 
   const readmePath = config.withReadme ? getReadmePath(workDir) : undefined;
+
+  if (readmePath && config.withChangelog) {
+    errors.push(
+      ...(await prepareChangelog(
+        path.resolve(workDir, readmePath),
+        context.nextRelease.notes,
+      )),
+    );
+  }
 
   readmePath && files.push(readmePath);
 
