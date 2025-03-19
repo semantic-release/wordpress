@@ -3,7 +3,8 @@
 [**semantic-release**](https://github.com/semantic-release/semantic-release) plugin to create a zip file for a [WordPress](https://wordpress.org) plugin or theme.
 
 ![node-current (scoped)](https://img.shields.io/node/v/%40semantic-release/wordpress)
-[![npm (scoped)](https://img.shields.io/npm/v/%40semantic-release/wordpress)](https://www.npmjs.com/package/@semantic-release/wordpress)
+[![NPM Version (with dist tag)](https://img.shields.io/npm/v/%40semantic-release%2Fwordpress/latest)](https://www.npmjs.com/package/@semantic-release/wordpress)
+[![NPM Version (with dist tag)](https://img.shields.io/npm/v/%40semantic-release%2Fwordpress/beta?color=d00)](https://www.npmjs.com/package/@semantic-release/)
 [![Release](https://github.com/semantic-release/wordpress/actions/workflows/release.yml/badge.svg)](https://github.com/semantic-release/wordpress/actions/workflows/release.yml)
 ![Scrutinizer coverage (GitHub/BitBucket)](https://img.shields.io/scrutinizer/coverage/g/oblakstudio/semantic-release-wp-plugin/master)
 
