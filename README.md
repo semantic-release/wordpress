@@ -2,6 +2,7 @@
 
 [**semantic-release**](https://github.com/semantic-release/semantic-release) plugin to create a zip file for a [WordPress](https://wordpress.org) plugin or theme.
 
+[![Hypercommit](https://img.shields.io/badge/Hypercommit-DB2475)](https://hypercommit.com/wordpress)
 ![node-current (scoped)](https://img.shields.io/node/v/%40semantic-release/wordpress)
 [![NPM Version (with dist tag)](https://img.shields.io/npm/v/%40semantic-release%2Fwordpress/latest)](https://www.npmjs.com/package/@semantic-release/wordpress)
 [![NPM Version (with dist tag)](https://img.shields.io/npm/v/%40semantic-release%2Fwordpress/beta?color=d00)](https://www.npmjs.com/package/@semantic-release/)
